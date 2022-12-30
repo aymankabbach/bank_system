@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 using namespace std;
 struct sClient
 {
@@ -63,6 +64,16 @@ string convert_client_info_to_line(sClient client, string seperator)
     line+=to_string(client.Balance);
     return line;
 }
+void add_data_to_file(string line)
+{
+    fstream file;
+    file.open("clients.txt",ios::out | ios::app);
+    if (file.is_open())
+    {
+        file<<line<<endl;
+        file.close();
+    }
+}
 void add_new_client()
 {
     cout<<"please, enter client data : \n\n";
@@ -70,6 +81,7 @@ void add_new_client()
     client=read_new_client_info();
     string line;
     line=convert_client_info_to_line(client,"////");
+    add_data_to_file(line);
 }
 void go_to_choice(int user_choice)
 {
