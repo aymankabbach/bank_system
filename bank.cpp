@@ -55,11 +55,21 @@ sClient read_new_client_info()
     
     return client;
 }
+string convert_client_info_to_line(sClient client, string seperator)
+{
+    string line="";
+    line+=client.AccountNumber+seperator;
+    line+=client.Name+seperator;
+    line+=to_string(client.Balance);
+    return line;
+}
 void add_new_client()
 {
     cout<<"please, enter client data : \n\n";
     sClient client;
     client=read_new_client_info();
+    string line;
+    line=convert_client_info_to_line(client,"////");
 }
 void go_to_choice(int user_choice)
 {
