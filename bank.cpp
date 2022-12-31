@@ -73,19 +73,49 @@ void add_data_to_file(string line)
         file<<line<<endl;
         file.close();
     }
+    
 }
 void add_new_client()
 {
-    cout<<"please, enter client data : \n\n";
+    cout<<"please, enter client infos : \n\n";
     sClient client;
     client=read_new_client_info();
     string line;
     line=convert_client_info_to_line(client,"////");
     add_data_to_file(line);
 }
+vector <string> Load_data_from_file()
+{
+    fstream file;
+    vector <string> vClients;
+    file.open("clients.txt", ios::in);
+    if (file.is_open())
+    {
+        string Line;
+        while (getline(file,Line))
+        {
+            vClients.push_back(Line);
+        }
+        file.close();
+    }
+    return vClients;
+}
+void show_all_clients_details()
+{
+    vector <string> vClients;
+    vClients=Load_data_from_file();
+    for (string client : vClients)
+    {
+        cout<<client<<endl;
+    }
+}
 void go_to_choice(int user_choice)
 {
-    if (user_choice==2)
+    if (user_choice==1)
+    {
+        show_all_clients_details();
+    }
+    else if (user_choice==2)
     {
         add_new_client();
     }
