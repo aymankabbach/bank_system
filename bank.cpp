@@ -86,8 +86,8 @@ void add_new_client()
 }
 vector <string> Load_data_from_file()
 {
-    fstream file;
     vector <string> vClients;
+    fstream file;
     file.open("clients.txt", ios::in);
     if (file.is_open())
     {
@@ -100,14 +100,47 @@ vector <string> Load_data_from_file()
     }
     return vClients;
 }
+vector <string> SplitString(string Line, string seperator)
+{
+    vector <string> vString;
+    string Info;
+    short pos=0;
+    while ((pos=Line.find(seperator)) != std::string::npos)
+    {
+        Info=Line.substr(0,pos);
+        if (Info != "")
+        {
+            vString.push_back(Info);
+        }
+        Line.erase(0,pos+seperator.length());
+    }
+    if (Line!="")
+    {
+        vString.push_back(Line);
+    }
+    return vString;
+}
+vector <sClient> convert_Line_to_struct(vector<string>vLines,string seperator)
+{
+    vector <sClient> vClients;
+    sClient Client;
+    vector <string> vClientData;
+    for (string Line : vLines)
+    {
+        vClientData=SplitString(Line,seperator);
+        Client.AccountNumber=vClientData[0];
+        Client.Name=vClientData[1];
+        Client.Balance=stod(vClientData[2]);
+        vClients.push_back(Client);
+    }
+    return vClients;
+}
 void show_all_clients_details()
 {
-    vector <string> vClients;
-    vClients=Load_data_from_file();
-    for (string client : vClients)
-    {
-        cout<<client<<endl;
-    }
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
 }
 void go_to_choice(int user_choice)
 {
