@@ -135,12 +135,22 @@ vector <sClient> convert_Line_to_struct(vector<string>vLines,string seperator)
     }
     return vClients;
 }
+void print_clients_details(vector <sClient> vClients)
+{
+    cout<<"all clients details : \n";
+    cout<<"Acc Number\tName\tBalance\n";
+    for (sClient Client : vClients)
+    {
+        cout<<Client.AccountNumber<<"\t\t"<<Client.Name<<"\t"<<Client.Balance<<endl;
+    }
+}
 void show_all_clients_details()
 {
     vector <string> vLines;
     vLines=Load_data_from_file();
     vector <sClient> vClients;
     vClients=convert_Line_to_struct(vLines,"////");
+    print_clients_details(vClients);
 }
 void go_to_choice(int user_choice)
 {
