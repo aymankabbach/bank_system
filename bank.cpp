@@ -8,6 +8,7 @@ struct sClient
     string AccountNumber;
     string Name;
     double Balance; 
+    bool to_delete=false;
 };
 void show_choices(vector <string> choices)
 {
@@ -21,7 +22,7 @@ void show_choices(vector <string> choices)
 void create_main_menu()
 {
     cout<<"Main Menu :\n";
-    vector <string> choices={"Show Client List","Add new Client","Update Client Info","Delete Client","Find Client","Exit"};
+    vector <string> choices={"Show Client List","Add new Client","Update Client Info","Find Client","Delete Client","Exit"};
     show_choices(choices);
 }
 int read_user_choice()
@@ -152,6 +153,60 @@ void show_all_clients_details()
     vClients=convert_Line_to_struct(vLines,"////");
     print_clients_details(vClients);
 }
+bool mark_client_to_delete(vector <sClient>& vClients,string Account_number)
+{
+    for (sClient& client : vClients)
+    {
+        if (client.AccountNumber==Account_number)
+        {
+            client.to_delete=true;
+            return true;
+        }
+    } 
+    return false;
+}
+string get_account_number_from_user()
+{
+    string Account_number;
+    cout<<"enter client's number :\n";
+    getline(cin>>ws,Account_number);
+    return Account_number;
+}
+void delete_client(vector <sClient> vClients)
+{
+    fstream file;
+    file.open("clients.txt",ios::out);
+    if (file.is_open())
+    {
+        for (sClient client : vClients)
+        {
+            if (client.to_delete==false)
+            {
+                string clients_data=convert_client_info_to_line(client,"////");
+                file<<clients_data<<endl;
+            }
+        }
+        file.close();
+    }
+}
+void delete_client_from_file()
+{
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
+    string Account_number;
+    Account_number=get_account_number_from_user();
+    bool client_found=mark_client_to_delete(vClients,Account_number);
+    if (client_found)
+    {
+        delete_client(vClients);
+    }
+    else
+    {
+        cout<<"error , client not found"<<endl;
+    }
+}
 void go_to_choice(int user_choice)
 {
     switch (user_choice)
@@ -161,6 +216,9 @@ void go_to_choice(int user_choice)
         break;
     case 2:
         add_new_client();
+        break;
+    case 5:
+        delete_client_from_file();
         break;
     }   
 }
