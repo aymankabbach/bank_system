@@ -154,14 +154,15 @@ void show_all_clients_details()
 }
 void go_to_choice(int user_choice)
 {
-    if (user_choice==1)
+    switch (user_choice)
     {
+    case 1:
         show_all_clients_details();
-    }
-    else if (user_choice==2)
-    {
+        break;
+    case 2:
         add_new_client();
-    }
+        break;
+    }   
 }
 int main()
 {
