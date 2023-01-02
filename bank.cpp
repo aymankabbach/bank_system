@@ -172,21 +172,28 @@ string get_account_number_from_user()
     getline(cin>>ws,Account_number);
     return Account_number;
 }
-void delete_client(vector <sClient> vClients)
+void delete_client(vector <sClient> vClients, bool client_found)
 {
-    fstream file;
-    file.open("clients.txt",ios::out);
-    if (file.is_open())
+    if (client_found)
     {
-        for (sClient client : vClients)
+        fstream file;
+        file.open("clients.txt",ios::out);
+        if (file.is_open())
         {
-            if (client.to_delete==false)
+            for (sClient client : vClients)
             {
-                string clients_data=convert_client_info_to_line(client,"////");
-                file<<clients_data<<endl;
+                if (client.to_delete==false)
+                {
+                    string clients_data=convert_client_info_to_line(client,"////");
+                    file<<clients_data<<endl;
+                }
             }
+            file.close();
         }
-        file.close();
+    }
+    else
+    {
+        cout<<"error , client not found"<<endl;
     }
 }
 void delete_client_from_file()
@@ -198,14 +205,44 @@ void delete_client_from_file()
     string Account_number;
     Account_number=get_account_number_from_user();
     bool client_found=mark_client_to_delete(vClients,Account_number);
+    delete_client(vClients,client_found);
+}
+bool search_wanted_client(vector <sClient> vClients,string Account_number, sClient& client)
+{
+    for (sClient& clt : vClients)
+    {
+        if (clt.AccountNumber==Account_number)
+        {
+            client=clt;
+            return true;
+        }
+    }
+    return false;
+}
+void print_client_details(bool client_found,sClient client)
+{
     if (client_found)
     {
-        delete_client(vClients);
+    cout<<"client's details : \n";
+    cout<<"Acc Number\tName\tBalance\n";
+    cout<<client.AccountNumber<<"\t\t"<<client.Name<<"\t"<<client.Balance<<endl;
     }
     else
     {
         cout<<"error , client not found"<<endl;
     }
+}
+void find_client()
+{
+    sClient client;
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
+    string Account_number;
+    Account_number=get_account_number_from_user();
+    bool client_found=search_wanted_client(vClients,Account_number,client);
+    print_client_details(client_found,client);
 }
 void go_to_choice(int user_choice)
 {
@@ -216,6 +253,9 @@ void go_to_choice(int user_choice)
         break;
     case 2:
         add_new_client();
+        break;
+    case 4:
+        find_client();
         break;
     case 5:
         delete_client_from_file();
