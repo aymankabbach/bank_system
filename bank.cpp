@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <stdlib.h>
 using namespace std;
 struct sClient
 {
@@ -244,7 +245,26 @@ void find_client()
     bool client_found=search_wanted_client(vClients,Account_number,client);
     print_client_details(client_found,client);
 }
-void go_to_choice(int user_choice)
+char get_answer()
+{
+    char answer;
+    cout<<"do you want to exit the program ?(y/n)\n";
+    cin>>answer;
+}
+void confirm_answer(char answer, int &user_choice)
+{
+    if (answer!='Y' && answer!='y')
+    {
+        user_choice=0;
+    }
+}
+void exit_program(int &user_choice)
+{
+    char answer;
+    answer=get_answer();
+    confirm_answer(answer,user_choice);
+}
+void execute_to_choice(int &user_choice)
 {
     switch (user_choice)
     {
@@ -260,13 +280,21 @@ void go_to_choice(int user_choice)
     case 5:
         delete_client_from_file();
         break;
+    case 6:
+        exit_program(user_choice);
+        break;
     }   
+}
+void run_program(int user_choice)
+{
+    create_main_menu();
+    user_choice=valid_user_choice();
+    execute_to_choice(user_choice);
 }
 int main()
 {
-    create_main_menu();
-    int user_choice=valid_user_choice();
-    go_to_choice(user_choice);
+    int user_choice;
+    run_program(user_choice);
     system("pause");
     return 0;
 }
