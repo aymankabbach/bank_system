@@ -248,12 +248,17 @@ void find_client()
 char get_answer()
 {
     char answer;
-    cout<<"do you want to exit the program ?(y/n)\n";
+    cout<<"do you want to exit the program ?(y/n)";
     cin>>answer;
+    return answer;
 }
 void confirm_answer(char answer, int &user_choice)
 {
-    if (answer!='Y' && answer!='y')
+    if (answer=='Y' || answer=='y')
+    {
+        user_choice=6;
+    }
+    else
     {
         user_choice=0;
     }
@@ -266,6 +271,7 @@ void exit_program(int &user_choice)
 }
 void execute_to_choice(int &user_choice)
 {
+    system("cls");
     switch (user_choice)
     {
     case 1:
@@ -285,7 +291,7 @@ void execute_to_choice(int &user_choice)
         break;
     }   
 }
-void run_program(int user_choice)
+void run_program(int &user_choice)
 {
     create_main_menu();
     user_choice=valid_user_choice();
@@ -294,7 +300,11 @@ void run_program(int user_choice)
 int main()
 {
     int user_choice;
-    run_program(user_choice);
-    system("pause");
+    do
+    {
+        system("cls");
+        run_program(user_choice);
+        system("pause");
+    }while (user_choice!=6);
     return 0;
 }
