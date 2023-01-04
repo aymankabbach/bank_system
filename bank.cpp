@@ -372,7 +372,8 @@ int main()
     {
         system("cls");
         run_program(user_choice);
-        system("pause");
+        cout<<"Ente any key to conntinue..."<<endl;
+        system("pause>0");
     }while (user_choice!=6);
     return 0;
 }
