@@ -269,7 +269,72 @@ void exit_program(int &user_choice)
     answer=get_answer();
     confirm_answer(answer,user_choice);
 }
-void execute_to_choice(int &user_choice)
+sClient update_client_info(sClient &client)
+{
+    cout<<"Enter client' name\n";
+    getline(cin >>ws, client.Name);
+
+    cout<<"Enter client's Balance\n";
+    cin>>client.Balance;
+    return client;
+}
+vector <string> convert_clients_info_to_line(vector <sClient> vClients, sClient client)
+{
+    vector <string> Lines;
+    for (sClient clt : vClients)
+    {
+        string Line;
+        if (clt.AccountNumber==client.AccountNumber)
+        {   
+            Line=convert_client_info_to_line(client,"////");
+        }
+        else
+        {
+            Line=convert_client_info_to_line(clt,"////");
+        }
+        Lines.push_back(Line);
+    }
+    return Lines;
+}
+void save_in_file(vector <string> Lines)
+{
+    fstream file;
+    file.open("clients.txt",ios::out);
+    if (file.is_open())
+    {
+        for (string Line : Lines)
+        {
+            file<<Line<<endl;
+        }
+        file.close();
+    }
+}
+void save_new_data(bool client_found,sClient client,vector <sClient> vClients)
+{
+    if (client_found)
+    {
+        client=update_client_info(client);
+        vector <string> Lines=convert_clients_info_to_line(vClients,client);
+        save_in_file(Lines);
+    }
+    else
+    {
+        cout<<"error , client not found"<<endl;
+    }
+}
+void update_client()
+{
+    sClient client;
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
+    string Account_number;
+    Account_number=get_account_number_from_user();
+    bool client_found=search_wanted_client(vClients,Account_number,client);
+    save_new_data(client_found,client,vClients);
+}
+void execute_the_choice(int &user_choice)
 {
     system("cls");
     switch (user_choice)
@@ -279,6 +344,9 @@ void execute_to_choice(int &user_choice)
         break;
     case 2:
         add_new_client();
+        break;
+    case 3:
+        update_client();
         break;
     case 4:
         find_client();
@@ -295,7 +363,7 @@ void run_program(int &user_choice)
 {
     create_main_menu();
     user_choice=valid_user_choice();
-    execute_to_choice(user_choice);
+    execute_the_choice(user_choice);
 }
 int main()
 {
