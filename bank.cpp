@@ -336,25 +336,46 @@ void update_client()
 }
 void execute_the_choice(int &user_choice)
 {
-    system("cls");
+    enum enOptions {
+    eShowClient=1,
+    eAddnewClient=2,
+    eUpdateClient=3,
+    eFindClient=4,
+    eDeleteClient=5,
+    eExit=6};
     switch (user_choice)
     {
-    case 1:
+    case enOptions::eShowClient:
+        system("cls");
         show_all_clients_details();
+        cout<<"Ente any key to conntinue..."<<endl;
+        system("pause>0");
         break;
-    case 2:
+    case enOptions::eAddnewClient:
+        system("cls");
         add_new_client();
+        cout<<"Ente any key to conntinue..."<<endl;
+        system("pause>0");
         break;
-    case 3:
+    case enOptions::eUpdateClient:
+        system("cls");
         update_client();
+        cout<<"Ente any key to conntinue..."<<endl;
+        system("pause>0");
         break;
-    case 4:
+    case enOptions::eFindClient:
+        system("cls");
         find_client();
+        cout<<"Ente any key to conntinue..."<<endl;
+        system("pause>0");
         break;
-    case 5:
+    case enOptions::eDeleteClient:
+        system("cls");
         delete_client_from_file();
+        cout<<"Ente any key to conntinue..."<<endl;
+        system("pause>0");
         break;
-    case 6:
+    case enOptions::eExit:
         exit_program(user_choice);
         break;
     }   
@@ -372,8 +393,6 @@ int main()
     {
         system("cls");
         run_program(user_choice);
-        cout<<"Ente any key to conntinue..."<<endl;
-        system("pause>0");
     }while (user_choice!=6);
     return 0;
 }
