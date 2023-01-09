@@ -23,7 +23,7 @@ void show_choices(vector <string> choices)
 void create_main_menu()
 {
     cout<<"Main Menu :\n";
-    vector <string> choices={"Show Client List","Add new Client","Update Client Info","Find Client","Delete Client","Exit"};
+    vector <string> choices={"Show Client List","Add new Client","Update Client Info","Find Client","Transations","Delete Client","Exit"};
     show_choices(choices);
 }
 int read_user_choice()
@@ -36,7 +36,7 @@ int read_user_choice()
 int valid_user_choice()
 {
     int choice=read_user_choice();
-    while (choice<1 || choice>6)
+    while (choice<1 || choice>7)
     {
         cout<<"error, please choose an option between 1 and 6\n";
         choice=read_user_choice();
@@ -341,8 +341,9 @@ void execute_the_choice(int &user_choice)
     eAddnewClient=2,
     eUpdateClient=3,
     eFindClient=4,
-    eDeleteClient=5,
-    eExit=6};
+    eTransactions=5,
+    eDeleteClient=6,
+    eExit=7};
     switch (user_choice)
     {
     case enOptions::eShowClient:
@@ -368,6 +369,9 @@ void execute_the_choice(int &user_choice)
         find_client();
         cout<<"Ente any key to conntinue..."<<endl;
         system("pause>0");
+        break;
+    case enOptions::eTransactions:
+        system("cls");
         break;
     case enOptions::eDeleteClient:
         system("cls");
