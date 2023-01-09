@@ -33,10 +33,10 @@ int read_user_choice()
     cin >> number;
     return number;
 }
-int valid_user_choice()
+int valid_user_choice(int first_choice,int last_choice)
 {
     int choice=read_user_choice();
-    while (choice<1 || choice>7)
+    while (choice<first_choice || choice>last_choice)
     {
         cout<<"error, please choose an option between 1 and 6\n";
         choice=read_user_choice();
@@ -79,6 +79,7 @@ void add_data_to_file(string line)
 }
 void add_new_client()
 {
+    cout<<"add client menu : \n";
     cout<<"please, enter client infos : \n\n";
     sClient client;
     client=read_new_client_info();
@@ -199,6 +200,7 @@ void delete_client(vector <sClient> vClients, bool client_found)
 }
 void delete_client_from_file()
 {
+    cout<<"delete client menu :\n";
     vector <string> vLines;
     vLines=Load_data_from_file();
     vector <sClient> vClients;
@@ -235,6 +237,7 @@ void print_client_details(bool client_found,sClient client)
 }
 void find_client()
 {
+    cout<<"find client menu :\n";
     sClient client;
     vector <string> vLines;
     vLines=Load_data_from_file();
@@ -324,6 +327,7 @@ void save_new_data(bool client_found,sClient client,vector <sClient> vClients)
 }
 void update_client()
 {
+    cout<<"update client menu :\n";
     sClient client;
     vector <string> vLines;
     vLines=Load_data_from_file();
@@ -342,7 +346,12 @@ void create_transaction_menu()
 }
 void go_to_transaction_menu()
 {
-    create_transaction_menu();
+    int user_choice;
+    do
+    {
+        create_transaction_menu();
+        user_choice=valid_user_choice(1,4);
+    }while (user_choice!=4);
 }
 void execute_the_choice(int &user_choice)
 {
@@ -359,37 +368,37 @@ void execute_the_choice(int &user_choice)
     case enOptions::eShowClient:
         system("cls");
         show_all_clients_details();
-        cout<<"Ente any key to continue..."<<endl;
+        cout<<"Enter any key to go back to main menu..."<<endl;
         system("pause>0");
         break;
     case enOptions::eAddnewClient:
         system("cls");
         add_new_client();
-        cout<<"Ente any key to continue..."<<endl;
+        cout<<"Enter any key to go back to main menu..."<<endl;
         system("pause>0");
         break;
     case enOptions::eUpdateClient:
         system("cls");
         update_client();
-        cout<<"Ente any key to continue..."<<endl;
+        cout<<"Enter any key to go back to main menu..."<<endl;
         system("pause>0");
         break;
     case enOptions::eFindClient:
         system("cls");
         find_client();
-        cout<<"Ente any key to continue..."<<endl;
+        cout<<"Enter any key to go back to main menu..."<<endl;
         system("pause>0");
         break;
     case enOptions::eTransactions:
         system("cls");
         go_to_transaction_menu();
-        cout<<"Ente any key to go back to main menu..."<<endl;
+        cout<<"Enter any key to go back to main menu..."<<endl;
         system("pause>0");
         break;
     case enOptions::eDeleteClient:
         system("cls");
         delete_client_from_file();
-        cout<<"Ente any key to continue..."<<endl;
+        cout<<"Enter any key to go back to main menu..."<<endl;
         system("pause>0");
         break;
     case enOptions::eExit:
@@ -400,7 +409,7 @@ void execute_the_choice(int &user_choice)
 void run_program(int &user_choice)
 {
     create_main_menu();
-    user_choice=valid_user_choice();
+    user_choice=valid_user_choice(1,7);
     execute_the_choice(user_choice);
 }
 int main()
