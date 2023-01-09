@@ -334,6 +334,16 @@ void update_client()
     bool client_found=search_wanted_client(vClients,Account_number,client);
     save_new_data(client_found,client,vClients);
 }
+void create_transaction_menu()
+{
+    cout<<"Transactions Menu :\n";
+    vector <string> choices={"Deposit","Withdraw","Total Balances","Main Menu"};
+    show_choices(choices);
+}
+void go_to_transaction_menu()
+{
+    create_transaction_menu();
+}
 void execute_the_choice(int &user_choice)
 {
     enum enOptions {
@@ -349,34 +359,37 @@ void execute_the_choice(int &user_choice)
     case enOptions::eShowClient:
         system("cls");
         show_all_clients_details();
-        cout<<"Ente any key to conntinue..."<<endl;
+        cout<<"Ente any key to continue..."<<endl;
         system("pause>0");
         break;
     case enOptions::eAddnewClient:
         system("cls");
         add_new_client();
-        cout<<"Ente any key to conntinue..."<<endl;
+        cout<<"Ente any key to continue..."<<endl;
         system("pause>0");
         break;
     case enOptions::eUpdateClient:
         system("cls");
         update_client();
-        cout<<"Ente any key to conntinue..."<<endl;
+        cout<<"Ente any key to continue..."<<endl;
         system("pause>0");
         break;
     case enOptions::eFindClient:
         system("cls");
         find_client();
-        cout<<"Ente any key to conntinue..."<<endl;
+        cout<<"Ente any key to continue..."<<endl;
         system("pause>0");
         break;
     case enOptions::eTransactions:
         system("cls");
+        go_to_transaction_menu();
+        cout<<"Ente any key to go back to main menu..."<<endl;
+        system("pause>0");
         break;
     case enOptions::eDeleteClient:
         system("cls");
         delete_client_from_file();
-        cout<<"Ente any key to conntinue..."<<endl;
+        cout<<"Ente any key to continue..."<<endl;
         system("pause>0");
         break;
     case enOptions::eExit:
