@@ -344,12 +344,26 @@ void update_client()
 sClient Add_Amount(sClient Client)
 {
     double amount;
-    cout<<"Enter Amount that you want to deposit";
+    cout<<"Enter Amount that you want to deposit"<<endl;
     cin>>amount;
     Client.Balance+=amount;
     return Client;
 }
-void save_data(sClient client,bool client_found,vector <sClient> vClients)
+sClient get_amount_to_withdraw(sClient Client)
+{
+    double amount;
+    cout<<"Enter Amount that you want to withdraw"<<endl;
+    cin>>amount;
+    while (amount>Client.Balance)
+    {
+        cout<<"you can withdraw up to "<<Client.Balance<<"\n";
+        cout<<"please, enter other amount"<<endl;
+        cin>>amount;
+    }
+    Client.Balance-=amount;
+    return Client;
+}
+void Deposit_new_amount(sClient client,bool client_found,vector <sClient> vClients)
 {
     if (client_found)
     {
@@ -363,6 +377,33 @@ void save_data(sClient client,bool client_found,vector <sClient> vClients)
         cout<<"error , client not found"<<endl;
     }
 }
+void withdraw_new_amount(sClient client,bool client_found,vector <sClient> vClients)
+{
+    if (client_found)
+    {
+        client=get_amount_to_withdraw(client);
+        vector <string> Lines=convert_clients_info_to_line(vClients,client);
+        save_in_file(Lines);
+        cout<<"operation was done successfully"<<endl;
+    }
+    else
+    {
+        cout<<"error , client not found"<<endl;
+    }
+}
+void Withdraw_choice()
+{
+    cout<<"Withdraw Menu :"<<endl;
+    sClient client;
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
+    string Account_number;
+    Account_number=get_account_number_from_user();
+    bool client_found=search_wanted_client(vClients,Account_number,client);
+    withdraw_new_amount(client,client_found,vClients);
+}
 void Deposit_choice()
 {
     cout<<"Deposit Menu :"<<endl;
@@ -374,7 +415,7 @@ void Deposit_choice()
     string Account_number;
     Account_number=get_account_number_from_user();
     bool client_found=search_wanted_client(vClients,Account_number,client);
-    save_data(client,client_found,vClients);
+    Deposit_new_amount(client,client_found,vClients);
 }
 void go_to_choice(int user_choice)
 {
@@ -387,17 +428,24 @@ void go_to_choice(int user_choice)
     case enChoice::eDeposit:
         system("cls");
         Deposit_choice();
+        cout<<"press any key to return to transaction menu"<<endl;
+        system("pause>0");
         break;
     case enChoice::eWithdraw:
         system("cls");
-        cout<<"Withdraw"<<endl;
+        Withdraw_choice();
+        cout<<"press any key to return to transaction menu"<<endl;
+        system("pause>0");
         break;
     case enChoice::eTotalBalance:
         system("cls");
         cout<<"T Balance"<<endl;
+        cout<<"press any key to return to transaction menu"<<endl;
+        system("pause>0");
         break;
     case enChoice::eReturn_to_mainMenu:
-        cout<<"Return to Main Menu"<<endl;
+        cout<<"press any key to return to the main menu"<<endl;
+        system("pause>0");
         break;
     }
 }
@@ -412,6 +460,7 @@ void go_to_transaction_menu()
     int user_choice;
     do
     {
+        system("cls");
         create_transaction_menu();
         user_choice=valid_user_choice(1,4);
         go_to_choice(user_choice);
