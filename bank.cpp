@@ -74,7 +74,9 @@ void add_data_to_file(string line)
     {
         file<<line<<endl;
         file.close();
+        cout<<"new client added successfully"<<endl;
     }
+
     
 }
 void add_new_client()
@@ -191,6 +193,7 @@ void delete_client(vector <sClient> vClients, bool client_found)
                 }
             }
             file.close();
+            cout<<"client was deleted successfully"<<endl;
         }
     }
     else
@@ -338,6 +341,41 @@ void update_client()
     bool client_found=search_wanted_client(vClients,Account_number,client);
     save_new_data(client_found,client,vClients);
 }
+sClient Add_Amount(sClient Client)
+{
+    double amount;
+    cout<<"Enter Amount that you want to deposit";
+    cin>>amount;
+    Client.Balance+=amount;
+    return Client;
+}
+void save_data(sClient client,bool client_found,vector <sClient> vClients)
+{
+    if (client_found)
+    {
+        client=Add_Amount(client);
+        vector <string> Lines=convert_clients_info_to_line(vClients,client);
+        save_in_file(Lines);
+        cout<<"operation was done successfully"<<endl;
+    }
+    else
+    {
+        cout<<"error , client not found"<<endl;
+    }
+}
+void Deposit_choice()
+{
+    cout<<"Deposit Menu :"<<endl;
+    sClient client;
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
+    string Account_number;
+    Account_number=get_account_number_from_user();
+    bool client_found=search_wanted_client(vClients,Account_number,client);
+    save_data(client,client_found,vClients);
+}
 void go_to_choice(int user_choice)
 {
     enum enChoice{eDeposit=1,
@@ -348,7 +386,7 @@ void go_to_choice(int user_choice)
     {
     case enChoice::eDeposit:
         system("cls");
-        cout<<"Deposit"<<endl;
+        Deposit_choice();
         break;
     case enChoice::eWithdraw:
         system("cls");
