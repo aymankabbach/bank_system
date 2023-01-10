@@ -338,6 +338,31 @@ void update_client()
     bool client_found=search_wanted_client(vClients,Account_number,client);
     save_new_data(client_found,client,vClients);
 }
+void go_to_choice(int user_choice)
+{
+    enum enChoice{eDeposit=1,
+    eWithdraw=2,
+    eTotalBalance=3,
+    eReturn_to_mainMenu=4};
+    switch (user_choice)
+    {
+    case enChoice::eDeposit:
+        system("cls");
+        cout<<"Deposit"<<endl;
+        break;
+    case enChoice::eWithdraw:
+        system("cls");
+        cout<<"Withdraw"<<endl;
+        break;
+    case enChoice::eTotalBalance:
+        system("cls");
+        cout<<"T Balance"<<endl;
+        break;
+    case enChoice::eReturn_to_mainMenu:
+        cout<<"Return to Main Menu"<<endl;
+        break;
+    }
+}
 void create_transaction_menu()
 {
     cout<<"Transactions Menu :\n";
@@ -351,6 +376,7 @@ void go_to_transaction_menu()
     {
         create_transaction_menu();
         user_choice=valid_user_choice(1,4);
+        go_to_choice(user_choice);
     }while (user_choice!=4);
 }
 void execute_the_choice(int &user_choice)
@@ -392,8 +418,6 @@ void execute_the_choice(int &user_choice)
     case enOptions::eTransactions:
         system("cls");
         go_to_transaction_menu();
-        cout<<"Enter any key to go back to main menu..."<<endl;
-        system("pause>0");
         break;
     case enOptions::eDeleteClient:
         system("cls");
