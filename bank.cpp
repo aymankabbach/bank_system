@@ -417,6 +417,26 @@ void Deposit_choice()
     bool client_found=search_wanted_client(vClients,Account_number,client);
     Deposit_new_amount(client,client_found,vClients);
 }
+void print_clients_balances(vector <sClient> vClients)
+{
+    double Total_Balances=0;
+    cout<<"all clients details : \n";
+    cout<<"Acc Number\tName\tBalance\n";
+    for (sClient Client : vClients)
+    {
+        Total_Balances+=Client.Balance;
+        cout<<Client.AccountNumber<<"\t\t"<<Client.Name<<"\t"<<Client.Balance<<endl;
+    }
+    cout<<"Total Balances : "<<Total_Balances<<endl;
+}
+void TotalBalance_choice()
+{
+    vector <string> vLines;
+    vLines=Load_data_from_file();
+    vector <sClient> vClients;
+    vClients=convert_Line_to_struct(vLines,"////");
+    print_clients_balances(vClients);
+}
 void go_to_choice(int user_choice)
 {
     enum enChoice{eDeposit=1,
@@ -439,7 +459,7 @@ void go_to_choice(int user_choice)
         break;
     case enChoice::eTotalBalance:
         system("cls");
-        cout<<"T Balance"<<endl;
+        TotalBalance_choice();
         cout<<"press any key to return to transaction menu"<<endl;
         system("pause>0");
         break;
