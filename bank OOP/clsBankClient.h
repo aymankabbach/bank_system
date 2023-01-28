@@ -47,8 +47,8 @@ public:
     {
         cout<<"Client Info \n";
         cout<<"\n";
-        cout<<"ID : "<<get_ID();
-        cout<<"Name : "<<get_name();
+        cout<<"ID : "<<get_ID()<<"\n";
+        cout<<"Name : "<<get_name()<<"\n";
         cout<<"Balance : "<<get_Balance();
         cout<<endl;
     }
