@@ -24,6 +24,14 @@ private:
     {
         return clsBankClient(enMode::Empty_Mode,"","",0);
     }
+    static string _get_ID_from_user()
+    {
+        string ID;
+        cout<<"enter client's ID"<<endl;
+        cin>>ID;
+        return ID;
+    }
+
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
     {
@@ -38,6 +46,10 @@ public:
     string get_ID()
     {
         return _ID;
+    }
+    void set_Balance(double Balance)
+    {
+        _Balance=Balance;
     }
     double get_Balance()
     {
@@ -55,7 +67,7 @@ public:
     static clsBankClient Find(string ID)
     {
         fstream MyFile;
-        MyFile.open("Clients.txt", ios::in);
+        MyFile.open("clients.txt", ios::in);
         if (MyFile.is_open())
         {
             string Line;
@@ -77,5 +89,10 @@ public:
 
         clsBankClient Client = clsBankClient::Find(ID);
         return (!Client.Is_Empty());
+    }
+    static void update_client_info()
+    {
+        string ID=_get_ID_from_user();
+        clsBankClient client=clsBankClient::Find(ID);
     }
 };
