@@ -31,7 +31,17 @@ private:
         cin>>ID;
         return ID;
     }
-
+    static void _update_info(clsBankClient& client)
+    {
+        string name;
+        double Balance;
+        cout<<"enter the client's name\n";
+        cin>>name;
+        client.set_name(name);
+        cout<<"enter new Balance"<<endl;
+        cin>>Balance;
+        client.set_Balance(Balance);
+    }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
     {
@@ -98,5 +108,6 @@ public:
             ID=_get_ID_from_user();
         }
         clsBankClient client=clsBankClient::Find(ID);
+        client._update_info(client);
     }
 };
