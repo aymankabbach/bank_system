@@ -93,6 +93,10 @@ public:
     static void update_client_info()
     {
         string ID=_get_ID_from_user();
+        while (!clsBankClient::IsClientExist(ID))
+        {
+            ID=_get_ID_from_user();
+        }
         clsBankClient client=clsBankClient::Find(ID);
     }
 };
