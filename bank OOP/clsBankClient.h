@@ -13,7 +13,7 @@ private:
     enMode _Mode;
     string _ID;
     double _Balance;
-
+    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1 };
     static clsBankClient _convert_line_to_client_object(string Line,string delim)
     {
         vector <string> vClient_Data;
@@ -42,6 +42,76 @@ private:
         cin>>Balance;
         client.set_Balance(Balance);
     }
+    static enSaveResults save(clsBankClient client)
+    {
+        switch(client._Mode)
+        {
+        case enMode::Empty_Mode:
+        {
+            return enSaveResults::svFailEmptyObject;
+        }
+        case enMode::Update_Mode:
+        {
+            _update(client);
+            return enSaveResults::svSucceeded;
+        }
+        }
+    }
+    static string _convert_client_object_to_Line(clsBankClient client,string delim)
+    {
+        string Line;
+        Line+=client.get_ID()+delim;
+        Line+=client.get_name()+delim;
+        Line+=to_string(client.get_Balance());
+        return Line;
+    }
+    static vector <clsBankClient> _load_data_from_File()
+    {
+        vector <clsBankClient> vClientsData;
+        fstream MyFile;
+        MyFile.open("clients.txt", ios::in);
+        if (MyFile.is_open())
+        {
+            string Line;
+            while (getline(MyFile, Line))
+            {
+                clsBankClient client=_convert_line_to_client_object(Line, "////");
+                vClientsData.push_back(client);
+            }
+            MyFile.close();
+        } 
+        return vClientsData;
+    }
+    static void _save_data_in_file(vector <clsBankClient> vClients)
+    {
+        fstream MyFile;
+        MyFile.open("clients.txt", ios::out);
+        string Line;
+        if (MyFile.is_open())
+        {
+          for (clsBankClient client : vClients)
+            {
+                Line = _convert_client_object_to_Line(client,"////");
+                MyFile << Line << endl;
+            }  
+        }
+        MyFile.close();
+    }
+    static void _update(clsBankClient client)
+    {
+        vector <clsBankClient> _vClients;
+        _vClients = _load_data_from_File();
+        for (clsBankClient& C : _vClients)
+        {
+            if (C.get_ID() == client.get_ID())
+            {
+                C = client;
+                break;
+            }
+        }
+        _save_data_in_file(_vClients);
+    }
+    
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
     {
@@ -109,5 +179,19 @@ public:
         }
         clsBankClient client=clsBankClient::Find(ID);
         client._update_info(client);
+        enSaveResults SaveResults=save(client);
+        switch (SaveResults)
+        { 
+            case enSaveResults::svSucceeded:
+            {
+                cout<<"account was updated successfully\n";
+                break;
+            }
+            case enSaveResults::svFailEmptyObject:
+            {
+                cout<<"\nError, Account as not saved because it is empty";
+                break;
+            }
+        }
     }
 };
