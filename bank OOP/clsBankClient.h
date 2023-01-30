@@ -9,11 +9,11 @@ using namespace std;
 class clsBankClient : public clsPerson
 {
 private:
-    enum enMode {Empty_Mode=0, Update_Mode=1};
+    enum enMode {Empty_Mode=0, Update_Mode=1, AddNew_Mode=2};
     enMode _Mode;
     string _ID;
     double _Balance;
-    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1 };
+    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1};
     static clsBankClient _convert_line_to_client_object(string Line,string delim)
     {
         vector <string> vClient_Data;
@@ -111,7 +111,10 @@ private:
         }
         _save_data_in_file(_vClients);
     }
-    
+    static clsBankClient _get_add_new_client_object(string ID)
+    {
+        return clsBankClient(enMode::AddNew_Mode,ID,"",0);
+    }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
     {
@@ -193,5 +196,15 @@ public:
                 break;
             }
         }
+    }
+    static void Add_new_client()
+    {
+        string ID=_get_ID_from_user();
+        while (IsClientExist(ID))
+        {
+            cout<<"client's ID qlready exist"<<endl;
+            ID=_get_ID_from_user();
+        }
+        clsBankClient new_client=_get_add_new_client_object(ID);
     }
 };
