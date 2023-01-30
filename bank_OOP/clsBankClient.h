@@ -57,7 +57,8 @@ private:
         }
         case enMode::AddNew_Mode:
         {
-            return enSaveResults::svFailIdExists;
+            _add_client_to_file(client);
+            return enSaveResults::svSucceeded;
         }
         }
     }
@@ -118,6 +119,18 @@ private:
     static clsBankClient _get_add_new_client_object(string ID)
     {
         return clsBankClient(enMode::AddNew_Mode,ID,"",0);
+    }
+    static void _add_client_to_file(clsBankClient client)
+    {
+        fstream MyFile;
+        MyFile.open("clients.txt", ios::app);
+        string Line;
+        if (MyFile.is_open())
+        {
+            Line = _convert_client_object_to_Line(client,"////");
+            MyFile << Line << endl;
+        }  
+        MyFile.close();
     }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
@@ -206,7 +219,7 @@ public:
         string ID=_get_ID_from_user();
         while (IsClientExist(ID))
         {
-            cout<<"client's ID qlready exist"<<endl;
+            cout<<"client's ID already exist"<<endl;
             ID=_get_ID_from_user();
         }
         clsBankClient new_client=_get_add_new_client_object(ID);

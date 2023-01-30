@@ -4,11 +4,9 @@ using namespace std;
 
 int main()
 {
-    clsBankClient Client1=clsBankClient::Find("A10");
-    Client1.get_info();
-    clsBankClient::update_client_info();
+    clsBankClient::Add_new_client();
     cout<<"-------"<<endl;
-    Client1=clsBankClient::Find("A10");
+    clsBankClient Client1=clsBankClient::Find("A13");
     Client1.get_info();
     system("pause");
     return 0;
