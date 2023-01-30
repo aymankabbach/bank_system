@@ -127,10 +127,38 @@ private:
         string Line;
         if (MyFile.is_open())
         {
+            cout<<"file open"<<endl;
             Line = _convert_client_object_to_Line(client,"////");
             MyFile << Line << endl;
         }  
         MyFile.close();
+    }
+    static void _delete_client_from_file(vector <clsBankClient> vClients,clsBankClient client)
+    {
+        
+        fstream MyFile;
+        MyFile.open("clients.txt", ios::out);
+        string Line;
+        if (MyFile.is_open())
+        {
+            cout<<"file is open"<<endl;
+            for (clsBankClient clt : vClients)
+            {
+                if (clt.get_ID()!=client.get_ID())
+                {
+                    Line = _convert_client_object_to_Line(client,"////");
+                    MyFile << Line << endl;
+                }
+            }  
+        }
+        MyFile.close();
+    }
+    static char _confirm_delete()
+    {
+        char answer;
+        cout<<"do you want to delete this client ? (y/n)"<<endl;
+        cin>>answer;
+        return answer;
     }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
@@ -170,7 +198,7 @@ public:
         MyFile.open("clients.txt", ios::in);
         if (MyFile.is_open())
         {
-            string Line;
+            string Line; 
             while (getline(MyFile, Line))
             {
                 clsBankClient client=_convert_line_to_client_object(Line, "////");
@@ -242,6 +270,27 @@ public:
                 cout<<"client already exists"<<endl;
                 break;
             }
+        }
+    }
+    static void Delete_client()
+    {
+        string ID=_get_ID_from_user();
+        while (IsClientExist(ID)==false)
+        {
+            cout<<"client's doesn't exist"<<endl;
+            ID=_get_ID_from_user();
+        }
+        clsBankClient client=Find(ID);
+        char answer=_confirm_delete();
+        if (answer=='y' || answer=='Y')
+        {
+            vector <clsBankClient> vClients=_load_data_from_File();
+            _delete_client_from_file(vClients,client);
+            cout<<"client deleted successfully"<<endl;
+        }
+        else
+        {
+            cout<<"error, client was not deleted"<<endl;
         }
     }
 };
