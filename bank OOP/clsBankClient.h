@@ -13,7 +13,7 @@ private:
     enMode _Mode;
     string _ID;
     double _Balance;
-    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1};
+    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1,svFailIdExists=2};
     static clsBankClient _convert_line_to_client_object(string Line,string delim)
     {
         vector <string> vClient_Data;
@@ -38,7 +38,7 @@ private:
         cout<<"enter the client's name\n";
         cin>>name;
         client.set_name(name);
-        cout<<"enter new Balance"<<endl;
+        cout<<"enter Balance"<<endl;
         cin>>Balance;
         client.set_Balance(Balance);
     }
@@ -54,6 +54,10 @@ private:
         {
             _update(client);
             return enSaveResults::svSucceeded;
+        }
+        case enMode::AddNew_Mode:
+        {
+            return enSaveResults::svFailIdExists;
         }
         }
     }
@@ -206,5 +210,25 @@ public:
             ID=_get_ID_from_user();
         }
         clsBankClient new_client=_get_add_new_client_object(ID);
+        new_client._update_info(new_client);
+        enSaveResults SaveResults=save(new_client);
+        switch (SaveResults)
+        { 
+            case enSaveResults::svSucceeded:
+            {
+                cout<<"account was added successfully\n";
+                break;
+            }
+            case enSaveResults::svFailEmptyObject:
+            {
+                cout<<"\nError, Account as not saved because it is empty";
+                break;
+            }
+            case enSaveResults::svFailIdExists:
+            {
+                cout<<"client already exists"<<endl;
+                break;
+            }
+        }
     }
 };
