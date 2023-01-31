@@ -146,7 +146,7 @@ private:
             {
                 if (clt.get_ID()!=client.get_ID())
                 {
-                    Line = _convert_client_object_to_Line(client,"////");
+                    Line = _convert_client_object_to_Line(clt,"////");
                     MyFile << Line << endl;
                 }
             }  
@@ -159,6 +159,31 @@ private:
         cout<<"do you want to delete this client ? (y/n)"<<endl;
         cin>>answer;
         return answer;
+    }
+    static void _show_details(clsBankClient client)
+    {
+        cout<<client.get_ID()<<"\t"<<client.get_name()<<"\t"<<client.get_Balance()<<endl;
+    }
+    static void _get_details(vector <clsBankClient> vClients)
+    {
+        cout<<"all clients details :\n";
+        cout<<"ID\tname\tBalance\n";
+        for (clsBankClient client : vClients)
+        {
+            _show_details(client);
+        }
+    }
+    static void _show_total_balances(vector <clsBankClient> vClients)
+    {
+        double total_balances=0;
+        cout<<"all clients details :\n";
+        cout<<"ID\tname\tBalance\n";
+        for (clsBankClient client : vClients)
+        {
+            total_balances+=client.get_Balance();
+            _show_details(client);
+        }
+        cout<<"\ntotal : "<<total_balances<<endl;
     }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
@@ -292,5 +317,15 @@ public:
         {
             cout<<"error, client was not deleted"<<endl;
         }
+    }
+    static void show_all_clients()
+    {
+        vector <clsBankClient> vClients=_load_data_from_File();
+        _get_details(vClients);
+    }
+    static void get_total_balances()
+    {
+        vector <clsBankClient> vClients=_load_data_from_File();
+        _show_total_balances(vClients);
     }
 };
