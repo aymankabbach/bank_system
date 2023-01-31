@@ -10,9 +10,9 @@ using namespace std;
 class clsMainScreen: protected clsScreen
 {
 private:
-    enum enMainMenueOptions {
-            enListClients = 1, enAddNewClient = 2, enUpdateClient = 3, enFindClient = 4, 
-            enShowTransactionsMenue = 5,enManageUsers = 6, enDeleteClient = 7, enExit = 8
+    enum enMain_menu_options {
+            enList_clients = 1, enAdd_new_client = 2, enUpdate_client = 3, enFind_client = 4, 
+            enShow_transactions_menu = 5,enManage_users = 6, enDelete_client = 7, enExit = 8
     };
     static short _read_user_choice()
     {
@@ -20,6 +20,52 @@ private:
         short user_choice = clsInputValidate::read_short_number_between(1,8,"Enter Number between 1 to 8? ");
         return user_choice;
     }
+    static void _Perfrom_main_menu_option(enMain_menu_options Main_Menu_option)
+        {
+            switch (Main_Menu_option)
+            {
+            case enMain_menu_options::enList_clients:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enAdd_new_client:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enUpdate_client:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enFind_client:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enShow_transactions_menu:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enManage_users:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enDelete_client:
+            {
+                system("cls");
+                break;
+            }
+            case enMain_menu_options::enExit:
+            {
+                system("cls");
+                break;
+            }
+            }
+        }
 public:
     static void Show_Main_Menu()
     {
