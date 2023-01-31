@@ -1,10 +1,10 @@
 #include <iostream>
-#include "clsBankClient.h"
+#include "clsMainScreen.h"
 using namespace std;
 
 int main()
 {
-    clsBankClient::get_total_balances();
+    clsMainScreen::Show_Main_Menu();
     system("pause");
     return 0;
 }
