@@ -3,6 +3,7 @@
 #include "clsScreen.h"
 #include "clsClientsScreen.h"
 #include "clsAddNewClientScreen.h"
+#include "clsDeleteClientScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -73,6 +74,7 @@ private:
             case enMain_menu_options::enDelete_client:
             {
                 system("cls");
+                clsDeleteClientScreen::show_DeleteClient_screen();
                 _back_to_main_menu();
                 break;
             }

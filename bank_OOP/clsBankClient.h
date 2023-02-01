@@ -119,7 +119,6 @@ private:
         string Line;
         if (MyFile.is_open())
         {
-            cout<<"file is open"<<endl;
             for (clsBankClient clt : vClients)
             {
                 if (clt.get_ID()!=client.get_ID())
@@ -301,7 +300,7 @@ public:
         string ID=_get_ID_from_user();
         while (IsClientExist(ID)==false)
         {
-            cout<<"client's doesn't exist"<<endl;
+            cout<<"client with "+ID+" does not already exist"<<endl;
             ID=_get_ID_from_user();
         }
         clsBankClient client=Find(ID);
@@ -342,5 +341,17 @@ public:
     static void update_info(clsBankClient& client)
     {
         client._update_info(client);
+    }
+    static char confirm_answer()
+    {
+        return _confirm_delete();
+    }
+    static vector <clsBankClient> load_data_from_File()
+    {
+        return _load_data_from_File();
+    }
+    static void delete_client_from_file(vector <clsBankClient> vClients,clsBankClient client)
+    {
+        _delete_client_from_file(vClients,client);
     }
 };
