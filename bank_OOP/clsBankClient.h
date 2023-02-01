@@ -13,7 +13,6 @@ private:
     enMode _Mode;
     string _ID;
     double _Balance;
-    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1,svFailIdExists=2};
     static clsBankClient _convert_line_to_client_object(string Line,string delim)
     {
         vector <string> vClient_Data;
@@ -41,26 +40,6 @@ private:
         cout<<"enter Balance"<<endl;
         cin>>Balance;
         client.set_Balance(Balance);
-    }
-    static enSaveResults save(clsBankClient client)
-    {
-        switch(client._Mode)
-        {
-        case enMode::Empty_Mode:
-        {
-            return enSaveResults::svFailEmptyObject;
-        }
-        case enMode::Update_Mode:
-        {
-            _update(client);
-            return enSaveResults::svSucceeded;
-        }
-        case enMode::AddNew_Mode:
-        {
-            _add_client_to_file(client);
-            return enSaveResults::svSucceeded;
-        }
-        }
     }
     static string _convert_client_object_to_Line(clsBankClient client,string delim)
     {
@@ -127,7 +106,6 @@ private:
         string Line;
         if (MyFile.is_open())
         {
-            cout<<"file open"<<endl;
             Line = _convert_client_object_to_Line(client,"////");
             MyFile << Line << endl;
         }  
@@ -243,6 +221,27 @@ public:
         clsBankClient Client = clsBankClient::Find(ID);
         return (!Client.Is_Empty());
     }
+    enum enSaveResults {svFailEmptyObject=0 , svSucceeded=1,svFailIdExists=2};
+    static enSaveResults save(clsBankClient client)
+    {
+        switch(client._Mode)
+        {
+        case enMode::Empty_Mode:
+        {
+            return enSaveResults::svFailEmptyObject;
+        }
+        case enMode::Update_Mode:
+        {
+            _update(client);
+            return enSaveResults::svSucceeded;
+        }
+        case enMode::AddNew_Mode:
+        {
+            _add_client_to_file(client);
+            return enSaveResults::svSucceeded;
+        }
+        }
+    }
     static void update_client_info()
     {
         string ID=_get_ID_from_user();
@@ -331,5 +330,17 @@ public:
     static vector <clsBankClient> get_Clients_List()
     {
         return _load_data_from_File();
+    }
+    static string get_ID_from_user()
+    {
+        return _get_ID_from_user();
+    }
+    static clsBankClient get_add_new_client_object(string ID)
+    {
+        return _get_add_new_client_object(ID);
+    }
+    static void update_info(clsBankClient& client)
+    {
+        client._update_info(client);
     }
 };

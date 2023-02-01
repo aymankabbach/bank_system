@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include "clsScreen.h"
-#include "clsBankClient.h"
 #include "clsClientsScreen.h"
+#include "clsAddNewClientScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -42,6 +42,7 @@ private:
             case enMain_menu_options::enAdd_new_client:
             {
                 system("cls");
+                clsAddNewClientScreen::show_AddNewClient_screen();
                 _back_to_main_menu();
                 break;
             }
