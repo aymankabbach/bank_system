@@ -5,7 +5,7 @@
 #include <vector>
 #include <iomanip>
 
-class clsAddNewClientScreen: protected clsScreen
+class clsUpdateClientScreen: protected clsScreen
 {
 public:
     static void Show_update_screen()
