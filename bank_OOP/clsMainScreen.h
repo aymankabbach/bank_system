@@ -5,6 +5,7 @@
 #include "clsAddNewClientScreen.h"
 #include "clsDeleteClientScreen.h"
 #include "clsFindClientScreen.h"
+#include "clsUpdateClientScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -51,6 +52,7 @@ private:
             case enMain_menu_options::enUpdate_client:
             {
                 system("cls");
+                clsUpdateClientScreen::Show_update_screen();
                 _back_to_main_menu();
                 break;
             }
