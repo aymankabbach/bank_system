@@ -4,6 +4,7 @@
 #include "clsClientsScreen.h"
 #include "clsAddNewClientScreen.h"
 #include "clsDeleteClientScreen.h"
+#include "clsFindClientScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -56,6 +57,7 @@ private:
             case enMain_menu_options::enFind_client:
             {
                 system("cls");
+                clsFindClientScreen::Show_client();
                 _back_to_main_menu();
                 break;
             }
