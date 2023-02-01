@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsScreen.h"
 #include "clsBankClient.h"
+#include "clsClientsScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -34,6 +35,7 @@ private:
             case enMain_menu_options::enList_clients:
             {
                 system("cls");
+                clsClientsScreen::ShowClientsList();
                 _back_to_main_menu();
                 break;
             }

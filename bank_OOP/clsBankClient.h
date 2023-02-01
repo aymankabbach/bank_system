@@ -328,4 +328,8 @@ public:
         vector <clsBankClient> vClients=_load_data_from_File();
         _show_total_balances(vClients);
     }
+    static vector <clsBankClient> get_Clients_List()
+    {
+        return _load_data_from_File();
+    }
 };
