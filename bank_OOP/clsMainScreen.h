@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "clsScreen.h"
+#include "clsBankClient.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -20,6 +21,12 @@ private:
         short user_choice = clsInputValidate::read_short_number_between(1,8,"Enter Number between 1 to 8? ");
         return user_choice;
     }
+    static void _back_to_main_menu()
+    {
+        cout<<"\npress any key to go back to Main Menu"<<endl;
+        system("pause>0");
+        Show_Main_Menu();
+    }
     static void _Perfrom_main_menu_option(enMain_menu_options Main_Menu_option)
         {
             switch (Main_Menu_option)
@@ -27,41 +34,49 @@ private:
             case enMain_menu_options::enList_clients:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enAdd_new_client:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enUpdate_client:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enFind_client:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enShow_transactions_menu:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enManage_users:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enDelete_client:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             case enMain_menu_options::enExit:
             {
                 system("cls");
+                _back_to_main_menu();
                 break;
             }
             }
@@ -81,6 +96,6 @@ public:
             cout << setw(37) << left << "" << "\t"<<x+1<<" "<<choices[x]<<".\n";
         }
         cout << setw(37) << left << "" << "===========================================\n";
-        short user_choice=_read_user_choice();
+        _Perfrom_main_menu_option((enMain_menu_options)_read_user_choice());
     } 
 };
