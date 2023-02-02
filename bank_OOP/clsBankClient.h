@@ -13,6 +13,7 @@ private:
     enMode _Mode;
     string _ID;
     double _Balance;
+
     static clsBankClient _convert_line_to_client_object(string Line,string delim)
     {
         vector <string> vClient_Data;
@@ -81,15 +82,14 @@ private:
         }
         MyFile.close();
     }
-    static void _update(clsBankClient client)
+    void _update()
     {
-        vector <clsBankClient> _vClients;
-        _vClients = _load_data_from_File();
+        vector <clsBankClient> _vClients=_load_data_from_File();
         for (clsBankClient& C : _vClients)
         {
-            if (C.get_ID() == client.get_ID())
+            if (C.get_ID() == _ID)
             {
-                C = client;
+                C = *this;
                 break;
             }
         }
@@ -121,7 +121,7 @@ private:
         {
             for (clsBankClient clt : vClients)
             {
-                if (clt.get_ID()!=client.get_ID())
+                if (clt.get_ID() != client.get_ID())
                 {
                     Line = _convert_client_object_to_Line(clt,"////");
                     MyFile << Line << endl;
@@ -161,10 +161,6 @@ private:
             _show_details(client);
         }
         cout<<"\ntotal : "<<total_balances<<endl;
-    }
-    static void _deposit(clsBankClient& client,short amount)
-    {
-        client.set_Balance(client.get_Balance()+amount);
     }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
@@ -235,7 +231,7 @@ public:
         }
         case enMode::Update_Mode:
         {
-            _update(client);
+            client._update();
             return enSaveResults::svSucceeded;
         }
         case enMode::AddNew_Mode:
@@ -358,8 +354,8 @@ public:
     {
         _delete_client_from_file(vClients,client);
     }
-    static void deposit(clsBankClient& client,short amount)
+    void deposit(short amount)
     {
-        _deposit(client,amount);
+        _Balance+=amount;
     }
 };

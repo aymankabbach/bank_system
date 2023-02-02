@@ -28,7 +28,7 @@ public:
         clsBankClient client=clsBankClient::Find(ID);
         system("cls");
         _DrawScreenHeader("Deposit screen");
-        client.deposit(client,_get_deposit_value());
+        client.deposit(_get_deposit_value());
         clsBankClient::enSaveResults SaveResults=clsBankClient::save(client);
         switch (SaveResults)
         { 
