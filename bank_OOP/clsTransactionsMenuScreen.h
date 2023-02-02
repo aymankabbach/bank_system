@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "clsScreen.h"
+#include "clsDepositScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -32,7 +33,7 @@ private:
             case enTransactions_menu_options::enDeposit:
             {
                 system("cls");
-                cout<<"Deposit choice"<<endl;
+                clsDepositScreen::Show_deposit_screen();
                 _back_to_transactions_menu();
                 break;
             }

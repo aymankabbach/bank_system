@@ -162,6 +162,10 @@ private:
         }
         cout<<"\ntotal : "<<total_balances<<endl;
     }
+    static void _deposit(clsBankClient& client,short amount)
+    {
+        client.set_Balance(client.get_Balance()+amount);
+    }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
     {
@@ -353,5 +357,9 @@ public:
     static void delete_client_from_file(vector <clsBankClient> vClients,clsBankClient client)
     {
         _delete_client_from_file(vClients,client);
+    }
+    static void deposit(clsBankClient& client,short amount)
+    {
+        _deposit(client,amount);
     }
 };
