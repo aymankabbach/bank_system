@@ -358,4 +358,8 @@ public:
     {
         _Balance+=amount;
     }
+    void withdraw(short amount)
+    {
+        _Balance-=amount;
+    }
 };
