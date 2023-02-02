@@ -46,6 +46,13 @@ public:
     {
         short number;
         cin>>number;
+        while (cin.fail())
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout<<message<<endl;
+        cin>>number;
+        }
         while (from>number || number>to)
         {
             cout<<message<<endl;
