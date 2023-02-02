@@ -6,6 +6,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsUpdateClientScreen.h"
+#include "clsTransactionsMenuScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -19,10 +20,10 @@ private:
             enList_clients = 1, enAdd_new_client = 2, enUpdate_client = 3, enFind_client = 4, 
             enShow_transactions_menu = 5,enManage_users = 6, enDelete_client = 7, enExit = 8
     };
-    static short _read_user_choice()
+    static short _read_user_choice(short size)
     {
-        cout <<setw(37) << left << ""<< "Choose what do you want to do? [1 to 8]? ";
-        short user_choice = clsInputValidate::read_short_number_between(1,8,"Enter Number between 1 to 8? ");
+        cout <<setw(37) << left << ""<< "Choose what do you want to do? [1 to "+to_string(size)+"]? ";
+        short user_choice = clsInputValidate::read_short_number_between(1,size,"Enter Number between 1 to "+to_string(size)+" ?");
         return user_choice;
     }
     static void _back_to_main_menu()
@@ -66,6 +67,7 @@ private:
             case enMain_menu_options::enShow_transactions_menu:
             {
                 system("cls");
+                clsTransactionsMenuScreen::Show_Transactions_main_menu_screen();
                 _back_to_main_menu();
                 break;
             }
@@ -105,6 +107,6 @@ public:
             cout << setw(37) << left << "" << "\t"<<x+1<<" "<<choices[x]<<".\n";
         }
         cout << setw(37) << left << "" << "===========================================\n";
-        _Perfrom_main_menu_option((enMain_menu_options)_read_user_choice());
+        _Perfrom_main_menu_option((enMain_menu_options)_read_user_choice(choices.size()));
     } 
 };
