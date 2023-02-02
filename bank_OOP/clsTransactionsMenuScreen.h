@@ -3,6 +3,7 @@
 #include "clsScreen.h"
 #include "clsDepositScreen.h"
 #include "clsWithdrawScreen.h"
+#include "clsTotalBalancesScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -48,7 +49,7 @@ private:
             case enTransactions_menu_options::enTotal_Balances:
             {
                 system("cls");
-                cout<<"total_balances choice"<<endl;
+                clsTotalBalancesScreen::Show_total_balances_screen();
                 _back_to_transactions_menu();
                 break;
             }
