@@ -53,4 +53,17 @@ public:
         }
         return number;
     }
+    static short Read_short_number(string message)
+    {
+        short number;
+        cin>>number;
+        while (cin.fail())
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout<<message<<endl;
+        cin>>number;
+        }
+        return number;
+    }
 };
