@@ -7,6 +7,7 @@
 #include "clsFindClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsTransactionsMenuScreen.h"
+#include "clsManageUsersScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -74,6 +75,7 @@ private:
             case enMain_menu_options::enManage_users:
             {
                 system("cls");
+                clsManageUsersMenuScreen::Show_ManageUsers_Menu_Screen();
                 _back_to_main_menu();
                 break;
             }
