@@ -2,7 +2,8 @@
 #include <iostream>
 #include <string>
 #include "clsPerson.h"
-# include "clsString.h"
+#include "clsString.h"
+#include "clsInputValidate.h"
 #include <fstream>
 
 using namespace std;
@@ -33,7 +34,7 @@ private:
         Line += User.get_name() + Seperator;
         Line += User.get_username() + Seperator;
         Line += User.get_Password() + Seperator;
-        Line += to_string(User.get_Permission());
+        Line += to_string(User.get_Permissions());
         return Line;
 
     }
@@ -58,15 +59,15 @@ private:
     {
         fstream MyFile;
         MyFile.open("Users.txt", ios::out);
-        string DataLine;
+        string Line;
         if (MyFile.is_open())
         {
             for (clsUser User : vUsers)
             {
                 if (User._Marked_For_Delete == false)
                 { 
-                    DataLine = _Convert_User_Object_To_Line(User);
-                    MyFile << DataLine << endl;
+                    Line = _Convert_User_Object_To_Line(User);
+                    MyFile << Line << endl;
                 }
             }
             MyFile.close();
@@ -76,15 +77,26 @@ private:
     {
         _Add_Data_Line_To_File(_Convert_User_Object_To_Line(*this));
     }
-    void _Add_Data_Line_To_File(string  stDataLine)
+    void _Add_Data_Line_To_File(string  Line)
     {
         fstream MyFile;
         MyFile.open("Users.txt", ios::app);
         if (MyFile.is_open())
         {
-            MyFile << stDataLine << endl;
+            MyFile << Line << endl;
             MyFile.close();
         }
+    }
+    void _get_info(clsUser& User)
+    {
+        string name;
+        cout<<"enter user's name"<<endl;
+        cin>>name;
+        string Password;
+        cout<<"enter user's password"<<endl;
+        cin>>Password;
+        User.set_name(name);
+        User.set_Password(Password);
     }
     void _Update()
     {
@@ -101,7 +113,18 @@ private:
         _Save_Users_Data_To_File(_vUsers);
 
     }
+    static string _get_username_from_user()
+    {
+        string Username;
+        cout<<"enter user's username"<<endl;
+        cin>>Username;
+        return Username;
+    }
 public:
+    enum enPermissions {
+        eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
+        pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64
+    };
     clsUser(enMode Mode,string Name,string Username,string Password,int Permissions) : clsPerson(Name)
     {
         _Mode=Mode;
@@ -129,11 +152,11 @@ public:
     {
         return _Password;
     }
-    void set_Permission(int Permission)
+    void set_Permissions(int Permission)
     {
         _Permissions=Permission;
     }
-    int get_Permission()
+    int get_Permissions()
     {
         return _Permissions;
     }
@@ -230,6 +253,7 @@ public:
             _AddNew();
             _Mode = enMode::Update_Mode;
             return enSaveResults::svSucceeded;
+            break;
         }
         }
     }
@@ -240,5 +264,13 @@ public:
     static vector <clsUser> Get_Users_List()
     {
         return _Load_Users_Data_From_File();
+    }
+    static string get_username_from_user()
+    {
+        return _get_username_from_user();
+    }
+    static void get_info(clsUser& User)
+    {
+        User._get_info(User);
     }
 };

@@ -3,6 +3,7 @@
 #include "clsScreen.h"
 #include "clsMainScreen.h"
 #include "clsUsersScreen.h"
+#include "clsAddNewUserScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -40,6 +41,7 @@ private:
             case enManagerUsers_menu_options::enAdd_new_User:
             {
                 system("cls");
+                clsAddNewUserScreen::show_AddNewUser_screen();
                 _back_to_ManageUsers_main_menu();
                 break;
             }

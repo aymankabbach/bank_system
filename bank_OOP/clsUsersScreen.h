@@ -15,7 +15,7 @@ private:
         cout << setw(8) << left << "" << "| " << setw(15) << left << User.get_name();
         cout << "| " << setw(20) << left << User.get_username();
         cout << "| " << setw(12) << left << User.get_Password();
-        cout << "| " << setw(12) << left << User.get_Permission();
+        cout << "| " << setw(12) << left << User.get_Permissions();
     }
 public:
     static void Show_Users_List()
@@ -27,7 +27,7 @@ public:
         cout <<  setw(8) << left << "" << "| " << left << setw(15) << "Name";
         cout << "| " << left << setw(20) << "Username";
         cout << "| " << left << setw(12) << "Password";
-        cout << "| " << left << setw(12) << "Permission";
+        cout << "| " << left << setw(12) << "Permissions";
         cout << setw(8) << left << "" << "\n\t_______________________________________________________";
         cout << "_________________________________________\n" << endl;
         if (vUsers.size() == 0)
