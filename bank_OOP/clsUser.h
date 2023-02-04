@@ -16,7 +16,7 @@ private:
     string _Password;
     bool _Marked_For_Delete = false;
     int _Permissions;
-    static clsUser _Convert_Line_to_User_Object(string Line, string Seperator = "#//#")
+    static clsUser _Convert_Line_to_User_Object(string Line, string Seperator = "////")
     {
         vector<string> vUserData;
         vUserData = clsString::split(Line, Seperator);
@@ -26,7 +26,7 @@ private:
     {
         return clsUser(enMode::Empty_Mode, "", "", "",0);
     }
-    static string _Convert_User_Object_To_Line(clsUser User, string Seperator = "#//#")
+    static string _Convert_User_Object_To_Line(clsUser User, string Seperator = "////")
     {
 
         string Line = "";
@@ -74,7 +74,6 @@ private:
     }
     void _AddNew()
     {
-
         _Add_Data_Line_To_File(_Convert_User_Object_To_Line(*this));
     }
     void _Add_Data_Line_To_File(string  stDataLine)
@@ -98,7 +97,6 @@ private:
                 User = *this;
                 break;
             }
-
         }
         _Save_Users_Data_To_File(_vUsers);
 
@@ -159,13 +157,13 @@ public:
                 break;
             }
         }
-        _delete_user_data_from_file(vUsers);
+        _Save_Users_Data_To_File(vUsers);
         *this = _Get_Empty_User_Object();
         return true;
     }
     static bool IsUserExist(string UserName)
     {
-
+        
         clsUser User = clsUser::Find(UserName);
         return (!User.IsEmpty());
     }
@@ -233,13 +231,7 @@ public:
             _Mode = enMode::Update_Mode;
             return enSaveResults::svSucceeded;
         }
-    }
-    }
-    static bool IsUserExist(string UserName)
-    {
-
-        clsUser User = clsUser::Find(UserName);
-        return (!User.IsEmpty());
+        }
     }
     static clsUser Get_Add_New_User_Object(string UserName)
     {

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsScreen.h"
 #include "clsMainScreen.h"
+#include "clsUsersScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -10,8 +11,8 @@ class clsManageUsersMenuScreen: protected clsScreen
 {
 private:
     enum enManagerUsers_menu_options {
-            enList_clients = 1, enAdd_new_client = 2, enUpdate_client = 3, enFind_client = 4,
-            enDelete_client = 5, enExit = 6,
+            enList_Users = 1, enAdd_new_User = 2, enUpdate_User = 3, enFind_User = 4,
+            enDelete_User = 5, enExit = 6,
     };
     static short _read_user_choice(short size)
     {
@@ -29,31 +30,32 @@ private:
         {
             switch (ManagerUsers_Menu_option)
             {
-            case enManagerUsers_menu_options::enList_clients:
+            case enManagerUsers_menu_options::enList_Users:
+            {
+                system("cls");
+                clsUsersScreen::Show_Users_List();
+                _back_to_ManageUsers_main_menu();
+                break;
+            }
+            case enManagerUsers_menu_options::enAdd_new_User:
             {
                 system("cls");
                 _back_to_ManageUsers_main_menu();
                 break;
             }
-            case enManagerUsers_menu_options::enAdd_new_client:
+            case enManagerUsers_menu_options::enUpdate_User:
             {
                 system("cls");
                 _back_to_ManageUsers_main_menu();
                 break;
             }
-            case enManagerUsers_menu_options::enUpdate_client:
+            case enManagerUsers_menu_options::enFind_User:
             {
                 system("cls");
                 _back_to_ManageUsers_main_menu();
                 break;
             }
-            case enManagerUsers_menu_options::enFind_client:
-            {
-                system("cls");
-                _back_to_ManageUsers_main_menu();
-                break;
-            }
-            case enManagerUsers_menu_options::enDelete_client:
+            case enManagerUsers_menu_options::enDelete_User:
             {
                 system("cls");
                 _back_to_ManageUsers_main_menu();
@@ -70,8 +72,8 @@ public:
     {
         system("cls");
         _DrawScreenHeader("\t\tManage User Menu Screen");
-        vector <string> choices={"Show Client List","Add New Client","Update Client Info","Find Client"
-        ,"Delete Client","Back to Main Menu"};
+        vector <string> choices={"Show User List","Add New User","Update User Info","Find User"
+        ,"Delete User","Back to Main Menu"};
         cout << setw(37) << left <<""<< "===========================================\n";
         cout << setw(37) << left << "" << "\t\t\tMain Menue\n";
         cout << setw(37) << left << "" << "===========================================\n";
