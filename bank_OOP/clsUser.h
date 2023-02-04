@@ -120,6 +120,13 @@ private:
         cin>>Username;
         return Username;
     }
+    static char _confirm_delete()
+    {
+        char answer;
+        cout<<"do you want to delete this client ? (y/n)"<<endl;
+        cin>>answer;
+        return answer;
+    }
 public:
     enum enPermissions {
         eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
@@ -272,5 +279,9 @@ public:
     static void get_info(clsUser& User)
     {
         User._get_info(User);
+    }
+    static char confirm_answer()
+    {
+        return _confirm_delete();
     }
 };

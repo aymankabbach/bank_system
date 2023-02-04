@@ -4,6 +4,7 @@
 #include "clsMainScreen.h"
 #include "clsUsersScreen.h"
 #include "clsAddNewUserScreen.h"
+#include "clsDeleteUserScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -60,6 +61,7 @@ private:
             case enManagerUsers_menu_options::enDelete_User:
             {
                 system("cls");
+                clsDeleteUserScreen::show_Delete_User_screen();
                 _back_to_ManageUsers_main_menu();
                 break;
             }
