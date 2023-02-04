@@ -113,7 +113,7 @@ private:
     }
     static void _delete_client_from_file(vector <clsBankClient> vClients,clsBankClient client)
     {
-        
+
         fstream MyFile;
         MyFile.open("clients.txt", ios::out);
         string Line;
