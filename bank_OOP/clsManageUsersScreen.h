@@ -5,6 +5,7 @@
 #include "clsUsersScreen.h"
 #include "clsAddNewUserScreen.h"
 #include "clsDeleteUserScreen.h"
+#include "clsFindUserScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -55,6 +56,7 @@ private:
             case enManagerUsers_menu_options::enFind_User:
             {
                 system("cls");
+                clsFindUserScreen::Show_User();
                 _back_to_ManageUsers_main_menu();
                 break;
             }
