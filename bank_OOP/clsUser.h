@@ -87,7 +87,7 @@ private:
             MyFile.close();
         }
     }
-    void _get_info(clsUser& User)
+    void _get_info()
     {
         string name;
         cout<<"enter user's name"<<endl;
@@ -95,8 +95,8 @@ private:
         string Password;
         cout<<"enter user's password"<<endl;
         cin>>Password;
-        User.set_name(name);
-        User.set_Password(Password);
+        set_name(name);
+        set_Password(Password);
     }
     void _Update()
     {
@@ -276,9 +276,9 @@ public:
     {
         return _get_username_from_user();
     }
-    static void get_info(clsUser& User)
+    void get_info()
     {
-        User._get_info(User);
+        _get_info();
     }
     static char confirm_answer()
     {

@@ -76,7 +76,7 @@ public:
             Username=clsUser::get_username_from_user();
         }
         clsUser new_user=clsUser::Get_Add_New_User_Object(Username);
-        new_user.get_info(new_user);
+        new_user.get_info();
         new_user.set_Permissions(_Read_Permissions_To_Set());
         clsUser::enSaveResults SaveResults=new_user.Save();
         switch (SaveResults)
