@@ -8,6 +8,7 @@
 #include "clsUpdateClientScreen.h"
 #include "clsTransactionsMenuScreen.h"
 #include "clsManageUsersScreen.h"
+#include "clsGlobal.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -26,6 +27,10 @@ private:
         cout <<setw(37) << left << ""<< "Choose what do you want to do? [1 to "+to_string(size)+"]? ";
         short user_choice = clsInputValidate::read_short_number_between(1,size,"Enter Number between 1 to "+to_string(size)+" ?");
         return user_choice;
+    }
+    static void _Logout()
+    {
+        Current_User=clsUser::Find("","");
     }
     static void _back_to_main_menu()
     {
@@ -89,7 +94,7 @@ private:
             case enMain_menu_options::enExit:
             {
                 system("cls");
-                _back_to_main_menu();
+                _Logout();
                 break;
             }
             }
