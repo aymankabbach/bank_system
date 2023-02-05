@@ -5,6 +5,7 @@
 #include "clsUsersScreen.h"
 #include "clsAddNewUserScreen.h"
 #include "clsDeleteUserScreen.h"
+#include "clsUpdateUserScreen.h"
 #include "clsFindUserScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
@@ -50,6 +51,7 @@ private:
             case enManagerUsers_menu_options::enUpdate_User:
             {
                 system("cls");
+                clsUpdateUserScreen::Show_update_screen();
                 _back_to_ManageUsers_main_menu();
                 break;
             }
