@@ -4,7 +4,10 @@ using namespace std;
 
 int main()
 {
-    clsLoginScreen::show_login_screen();
+    while (true)
+    {
+        clsLoginScreen::show_login_screen();
+    }
     system("pause");
     return 0;
 }
