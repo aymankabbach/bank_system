@@ -6,7 +6,10 @@ int main()
 {
     while (true)
     {
-        clsLoginScreen::show_login_screen();
+        if (!clsLoginScreen::show_login_screen())
+        {
+            break;
+        }
     }
     system("pause");
     return 0;
