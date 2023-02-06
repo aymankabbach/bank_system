@@ -79,6 +79,10 @@ public:
     static void Show_ManageUsers_Menu_Screen()
     {
         system("cls");
+        if (!Check_Access_Rights(clsUser::enPermissions::pManageUsers))
+        {
+            return;
+        } 
         _DrawScreenHeader("\t\tManage User Menu Screen");
         vector <string> choices={"Show User List","Add New User","Update User Info","Find User"
         ,"Delete User","Back to Main Menu"};

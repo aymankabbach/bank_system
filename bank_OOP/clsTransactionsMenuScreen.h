@@ -63,6 +63,10 @@ public:
     static void Show_Transactions_main_menu_screen()
     {
         system("cls");
+        if (!Check_Access_Rights(clsUser::enPermissions::pTranactions))
+        {
+            return;
+        } 
         _DrawScreenHeader("\t\tTransaction Menu Screen");
         vector <string> choices={"Deposit","Withdraw","Total Balances","Back to main Menu"};
         cout << setw(37) << left <<""<< "===========================================\n";

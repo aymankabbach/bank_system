@@ -10,6 +10,10 @@ class clsUpdateClientScreen: protected clsScreen
 public:
     static void Show_update_screen()
     {
+        if (!Check_Access_Rights(clsUser::enPermissions::pUpdateClients))
+        {
+            return;
+        } 
         _DrawScreenHeader("Update client's info screen");
         string ID=clsBankClient::get_ID_from_user();
         while (clsBankClient::IsClientExist(ID)==false)

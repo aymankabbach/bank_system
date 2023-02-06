@@ -12,6 +12,10 @@ class clsDeleteClientScreen: protected clsScreen
 public:
     static void show_DeleteClient_screen()
     {
+        if (!Check_Access_Rights(clsUser::enPermissions::pDeleteClient))
+        {
+            return;
+        } 
         _DrawScreenHeader("Delete client screen");
         string ID=clsBankClient::get_ID_from_user();
         while (clsBankClient::IsClientExist(ID)==false)

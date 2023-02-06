@@ -12,6 +12,10 @@ class clsAddNewClientScreen: protected clsScreen
 public:
     static void show_AddNewClient_screen()
     {
+        if (!Check_Access_Rights(clsUser::enPermissions::pAddNewClient))
+        {
+            return;
+        } 
         _DrawScreenHeader("Add new client screen");
         string ID=clsBankClient::get_ID_from_user();
         while (clsBankClient::IsClientExist(ID))

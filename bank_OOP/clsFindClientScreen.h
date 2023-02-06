@@ -18,6 +18,10 @@ private:
 public:
     static void Show_client()
     {
+        if (!Check_Access_Rights(clsUser::enPermissions::pFindClient))
+        {
+            return;
+        } 
         string ID=clsBankClient::get_ID_from_user();
         while (clsBankClient::IsClientExist(ID)==false)
         {
