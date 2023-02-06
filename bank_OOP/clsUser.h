@@ -284,4 +284,15 @@ public:
     {
         return _confirm_delete();
     }
+    bool Check_Access_Permission(enPermissions Permission)
+    {
+        if (this->get_Permissions() == enPermissions::eAll)
+            return true;
+
+        if ((Permission & this->get_Permissions()) == Permission)
+            return true;
+        else
+            return false;
+
+    }
 };
