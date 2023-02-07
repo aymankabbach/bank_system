@@ -19,6 +19,7 @@ private:
 public:
     static void Show_deposit_screen()
     {
+        _DrawScreenHeader("Deposit screen");
         string ID=clsBankClient::get_ID_from_user();
         while (clsBankClient::IsClientExist(ID)==false)
         {
@@ -26,8 +27,6 @@ public:
             ID=clsBankClient::get_ID_from_user();
         }
         clsBankClient client=clsBankClient::Find(ID);
-        system("cls");
-        _DrawScreenHeader("Deposit screen");
         client.deposit(_get_deposit_value());
         clsBankClient::enSaveResults SaveResults=clsBankClient::save(client);
         switch (SaveResults)
