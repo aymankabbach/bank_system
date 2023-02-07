@@ -3,6 +3,7 @@
 #include "clsScreen.h"
 #include "clsUser.h"
 #include "clsMainScreen.h"
+#include "clsDate.h"
 #include "clsGlobal.h"
 #include <iomanip>
 
@@ -11,6 +12,25 @@ using namespace std;
 class clsLoginScreen: protected clsScreen
 {
 private:
+    static string _convert_user_object_to_line(string delim="////")
+    {
+        string Line;
+        Line+=clsDate::get_current_complet_date()+delim;
+        Line+=Current_User.get_username()+delim+Current_User.get_Password()+delim+to_string(Current_User.get_Permissions());
+        return Line;
+    }
+    static void _regist_login()
+    {
+        fstream MyFile;
+        string Line;
+        MyFile.open("Login_Register.txt", ios::out | ios::app);
+        if (MyFile.is_open())
+        {
+            Line=_convert_user_object_to_line();
+            MyFile << Line << endl;
+            MyFile.close();
+        }
+    } 
     static bool _login()
     {
         bool login_failed=false;
@@ -39,6 +59,7 @@ private:
                 attempts+=1;
             }
         } while (login_failed);
+        _regist_login();
         clsMainScreen::Show_Main_Menu();
         return true;
     }
