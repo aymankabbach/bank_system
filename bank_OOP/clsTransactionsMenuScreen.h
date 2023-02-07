@@ -4,6 +4,7 @@
 #include "clsDepositScreen.h"
 #include "clsWithdrawScreen.h"
 #include "clsTotalBalancesScreen.h"
+#include "clsTransferScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -14,7 +15,7 @@ class clsTransactionsMenuScreen: protected clsScreen
 {
 private:
     enum enTransactions_menu_options {
-            enDeposit = 1, enWithdraw = 2, enTotal_Balances = 3, enExit = 4,
+            enDeposit = 1, enWithdraw = 2, enTotal_Balances = 3, enTransfer=4,enExit = 5
     };
     static short _read_user_choice(short size)
     {
@@ -53,6 +54,13 @@ private:
                 _back_to_transactions_menu();
                 break;
             }
+            case enTransactions_menu_options::enTransfer:
+            {
+                system("cls");
+                clsTransferScreen::Show_transfer_Screen();
+                _back_to_transactions_menu();
+                break;
+            }
             case enTransactions_menu_options::enExit:
             {
                 break;
@@ -68,7 +76,7 @@ public:
             return;
         } 
         _DrawScreenHeader("\t\tTransaction Menu Screen");
-        vector <string> choices={"Deposit","Withdraw","Total Balances","Back to main Menu"};
+        vector <string> choices={"Deposit","Withdraw","Total Balances","Transfer","Back to main Menu"};
         cout << setw(37) << left <<""<< "===========================================\n";
         cout << setw(37) << left << "" << "\t\t\tMain Menue\n";
         cout << setw(37) << left << "" << "===========================================\n";
