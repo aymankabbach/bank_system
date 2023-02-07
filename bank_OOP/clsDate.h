@@ -157,6 +157,22 @@ public:
         }
         return true;
     }
+    static string get_current_complet_date()
+    {
+        string Line;
+        time_t theTime = time(NULL);
+        struct tm *aTime = localtime(&theTime);
+        short day = aTime->tm_mday;
+        short month = aTime->tm_mon + 1;
+        short year = aTime->tm_year + 1900;
+        short hour =aTime->tm_hour;
+        short minutes=aTime->tm_min;
+        short seconds=aTime->tm_sec;
+        Line+=to_string(day)+"/"+to_string(month)+"/"+to_string(year);
+        Line+=" ";
+        Line+=to_string(hour)+":"+to_string(minutes)+":"+to_string(seconds);
+        return Line;
+    }
     static void get_current_date()
     {
         time_t theTime = time(NULL);
