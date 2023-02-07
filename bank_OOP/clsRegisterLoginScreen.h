@@ -37,6 +37,10 @@ private:
 public:
     static void Show_Register_login_List()
     {
+        if (!Check_Access_Rights(clsUser::enPermissions::pLogInRegister))
+        {
+            return;
+        } 
         vector <string> vRecords=_get_records();
         string Title = "\t  Login register List Screen";
         string SubTitle ="\t    (" + to_string(vRecords.size()) + ") user(s).";
