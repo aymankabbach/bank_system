@@ -10,9 +10,9 @@ using namespace std;
 class clsWithdrawScreen : protected clsScreen
 {
 private:
-    static short _get_deposit_value(clsBankClient client)
+    static short _get_withdraw_value(clsBankClient client)
     {
-        cout<<"how much do you want to deposit\n";
+        cout<<"how much do you want to withdraw\n";
         cout<<"your balance is "+to_string(client.get_Balance())<<endl;
         string message="invalid, please enter a number between "+to_string(0)+" and "+to_string(client.get_Balance());
         short amount=clsInputValidate::read_short_number_between(0,client.get_Balance(),message);
@@ -30,7 +30,7 @@ public:
         clsBankClient client=clsBankClient::Find(ID);
         system("cls");
         _DrawScreenHeader("withdraw screen");
-        client.withdraw(_get_deposit_value(client));
+        client.withdraw(_get_withdraw_value(client));
         clsBankClient::enSaveResults SaveResults=clsBankClient::save(client);
         switch (SaveResults)
         { 
