@@ -8,6 +8,7 @@
 #include "clsUpdateClientScreen.h"
 #include "clsTransactionsMenuScreen.h"
 #include "clsManageUsersScreen.h"
+#include "clsRegisterLoginScreen.h"
 #include "clsGlobal.h"
 #include "clsInputValidate.h"
 #include <vector>
@@ -20,7 +21,7 @@ class clsMainScreen: protected clsScreen
 private:
     enum enMain_menu_options {
             enList_clients = 1, enAdd_new_client = 2, enUpdate_client = 3, enFind_client = 4, 
-            enShow_transactions_menu = 5,enManage_users = 6, enDelete_client = 7, enExit = 8
+            enShow_transactions_menu = 5,enManage_users = 6, enLoginRegister=7,enDelete_client = 8, enExit = 9
     };
     static short _read_user_choice(short size)
     {
@@ -84,6 +85,13 @@ private:
                 _back_to_main_menu();
                 break;
             }
+            case enMain_menu_options::enLoginRegister:
+            {
+                system("cls");
+                clsRegisterLoginScreen::Show_Register_login_List();
+                _back_to_main_menu();
+                break;
+            }
             case enMain_menu_options::enDelete_client:
             {
                 system("cls");
@@ -105,7 +113,7 @@ public:
         system("cls");
         _DrawScreenHeader("\t\tMain Screen");
         vector <string> choices={"Show Client List","Add New Client","Update Client Info","Find Client",
-        "Transactions","Manage Users","Delete Client","Logout"};
+        "Transactions","Manage Users","Login Register","Delete Client","Logout"};
         cout << setw(37) << left <<""<< "===========================================\n";
         cout << setw(37) << left << "" << "\t\t\tMain Menue\n";
         cout << setw(37) << left << "" << "===========================================\n";
