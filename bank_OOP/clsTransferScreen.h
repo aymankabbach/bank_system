@@ -15,31 +15,38 @@ private:
         cout<<"how much do you want to send\n";
         cout<<"your balance is "+to_string(client.get_Balance())<<endl;
         string message="invalid, please enter a number between "+to_string(0)+" and "+to_string(client.get_Balance());
-        short amount=clsInputValidate::read_short_number_between(0,client.get_Balance(),message);
+        float amount=clsInputValidate::read_float_number_between(0,client.get_Balance(),message);
         return amount;
+    }
+    static clsBankClient get_client_ID(string message)
+    {
+        string ID=clsBankClient::get_ID_from_user(message);
+        while (clsBankClient::IsClientExist(ID)==false)
+        {
+            cout<<"Client with "+ID+" does not exist"<<endl;
+            ID=clsBankClient::get_ID_from_user(message);
+        }
+        clsBankClient client=clsBankClient::Find(ID);
+        return client;
     }
 public:
     static void Show_transfer_Screen()
     {
         _DrawScreenHeader("Transfer screen");
-        string ID_1=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer From: ");
-        while (clsBankClient::IsClientExist(ID_1)==false)
-        {
-            cout<<"Client with "+ID_1+" does not exist"<<endl;
-            ID_1=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer From: ");
-        }
-        clsBankClient client_sender=clsBankClient::Find(ID_1);
-        string ID_2=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer to: ");
-        while (clsBankClient::IsClientExist(ID_2)==false)
-        {
-            cout<<"Client with "+ID_2+" does not exist"<<endl;
-            ID_2=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer to: ");
-        }
-        clsBankClient client_receiver=clsBankClient::Find(ID_2);
+        clsBankClient client_sender=get_client_ID("\nPlease Enter ID to Transfer From: ");
+        clsBankClient client_receiver=get_client_ID("\nPlease Enter ID to Transfer to: ");
         float amount=_get_withdraw_value(client_sender);
-        client_sender.withdraw(amount);
-        client_receiver.deposit(amount);
-        clsBankClient::enSaveResults SaveResults1=clsBankClient::save(client_receiver);
-        clsBankClient::enSaveResults SaveResults2=clsBankClient::save(client_sender);
+        cout << "\nAre you sure you want to perform this operation? y/n? ";
+        char answer;
+        cin >> answer;
+        if (answer=='y'|| answer=='Y')
+        {
+            client_sender.transfer(amount,client_receiver);
+            cout << "\nTransfer done successfully\n";
+        }
+        else
+        {
+            cout<<"transfer canceled"<<endl;
+        }
     }
 };
