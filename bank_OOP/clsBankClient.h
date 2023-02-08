@@ -362,4 +362,11 @@ public:
     {
         _Balance-=amount;
     }
+    void transfer(float amount, clsBankClient& client)
+    {
+        client.deposit(amount);
+        withdraw(amount);
+        clsBankClient::enSaveResults SaveResults1=clsBankClient::save(*this);
+        clsBankClient::enSaveResults SaveResults2=clsBankClient::save(client);
+    }
 };
