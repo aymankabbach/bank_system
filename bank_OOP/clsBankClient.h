@@ -3,6 +3,7 @@
 #include <string>
 #include "clsPerson.h"
 # include "clsString.h"
+#include "clsDate.h"
 #include <fstream>
 using namespace std;
 
@@ -161,6 +162,30 @@ private:
             _show_details(client);
         }
         cout<<"\ntotal : "<<total_balances<<endl;
+    }
+    string _convert_record_to_Line(clsBankClient client,float amount)
+    {
+        string Line;
+        Line+=clsDate::get_current_complet_date()+"////";
+        Line+=get_ID()+"////";
+        Line+=client.get_ID()+"////";
+        Line+=to_string(amount)+"////";
+        Line+=to_string(get_Balance())+"////";
+        Line+=to_string(client.get_Balance())+"////";
+        Line+=Current_User.get_username();
+        return Line;
+    }
+    static void _save_transfer(string Line)
+    {
+        {
+        fstream MyFile;
+        MyFile.open("transferLog.txt", ios::out | ios::app);
+        if (MyFile.is_open())
+        {
+            MyFile << Line << endl;
+        }  
+        MyFile.close();
+        }
     }
 public:
     clsBankClient(enMode Mode,string ID,string Name,double Balance) : clsPerson(Name)
@@ -368,5 +393,7 @@ public:
         withdraw(amount);
         clsBankClient::enSaveResults SaveResults1=clsBankClient::save(*this);
         clsBankClient::enSaveResults SaveResults2=clsBankClient::save(client);
+        string Line=_convert_record_to_Line(client,amount);
+        _save_transfer(Line);
     }
 };
