@@ -60,6 +60,24 @@ public:
         }
         return number;
     }
+    static float read_float_number_between(float from, float to, string message)
+    {
+        float number;
+        cin>>number;
+        while (cin.fail())
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout<<message<<endl;
+        cin>>number;
+        }
+        while (from>number || number>to)
+        {
+            cout<<message<<endl;
+            cin>>number;
+        }
+        return number;
+    }
     static short Read_short_number(string message)
     {
         short number;
