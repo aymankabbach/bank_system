@@ -17,11 +17,11 @@ public:
             return;
         } 
         _DrawScreenHeader("Delete client screen");
-        string ID=clsBankClient::get_ID_from_user();
+        string ID=clsBankClient::get_ID_from_user("enter client's ID");
         while (clsBankClient::IsClientExist(ID)==false)
         {
             cout<<"client with "+ID+" does not already exist"<<endl;
-            ID=clsBankClient::get_ID_from_user();
+            ID=clsBankClient::get_ID_from_user("enter client's ID");
         }
         clsBankClient client=clsBankClient::Find(ID);
         char answer=clsBankClient::confirm_answer();

@@ -15,11 +15,11 @@ public:
             return;
         } 
         _DrawScreenHeader("Update client's info screen");
-        string ID=clsBankClient::get_ID_from_user();
+        string ID=clsBankClient::get_ID_from_user("enter client's ID");
         while (clsBankClient::IsClientExist(ID)==false)
         {
             cout<<"client with "+ID+" ID does not exit"<<endl;
-            ID=clsBankClient::get_ID_from_user();
+            ID=clsBankClient::get_ID_from_user("enter client's ID");
         }
         clsBankClient client=clsBankClient::Find(ID);
         client.update_info(client);

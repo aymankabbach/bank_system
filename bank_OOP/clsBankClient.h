@@ -24,10 +24,10 @@ private:
     {
         return clsBankClient(enMode::Empty_Mode,"","",0);
     }
-    static string _get_ID_from_user()
+    static string _get_ID_from_user(string message)
     {
         string ID;
-        cout<<"enter client's ID"<<endl;
+        cout<<message<<endl;
         cin>>ID;
         return ID;
     }
@@ -243,10 +243,10 @@ public:
     }
     static void update_client_info()
     {
-        string ID=_get_ID_from_user();
+        string ID=_get_ID_from_user("enter client's ID");
         while (!clsBankClient::IsClientExist(ID))
         {
-            ID=_get_ID_from_user();
+            ID=_get_ID_from_user("enter client's ID");
         }
         clsBankClient client=clsBankClient::Find(ID);
         client._update_info(client);
@@ -267,11 +267,11 @@ public:
     }
     static void Add_new_client()
     {
-        string ID=_get_ID_from_user();
+        string ID=_get_ID_from_user("enter client's ID");
         while (IsClientExist(ID))
         {
             cout<<"client's ID already exist"<<endl;
-            ID=_get_ID_from_user();
+            ID=_get_ID_from_user("enter client's ID");
         }
         clsBankClient new_client=_get_add_new_client_object(ID);
         new_client._update_info(new_client);
@@ -297,11 +297,11 @@ public:
     }
     static void Delete_client()
     {
-        string ID=_get_ID_from_user();
+        string ID=_get_ID_from_user("enter client's ID");
         while (IsClientExist(ID)==false)
         {
             cout<<"client with "+ID+" does not already exist"<<endl;
-            ID=_get_ID_from_user();
+            ID=_get_ID_from_user("enter client's ID");
         }
         clsBankClient client=Find(ID);
         char answer=_confirm_delete();
@@ -330,9 +330,9 @@ public:
     {
         return _load_data_from_File();
     }
-    static string get_ID_from_user()
+    static string get_ID_from_user(string message)
     {
-        return _get_ID_from_user();
+        return _get_ID_from_user(message);
     }
     static clsBankClient get_add_new_client_object(string ID)
     {

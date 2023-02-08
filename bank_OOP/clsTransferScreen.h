@@ -10,7 +10,7 @@ using namespace std;
 class clsTransferScreen : protected clsScreen
 {
 private:
-    static short _get_withdraw_value(clsBankClient client)
+    static float _get_withdraw_value(clsBankClient client)
     {
         cout<<"how much do you want to send\n";
         cout<<"your balance is "+to_string(client.get_Balance())<<endl;
@@ -22,21 +22,21 @@ public:
     static void Show_transfer_Screen()
     {
         _DrawScreenHeader("Transfer screen");
-        string ID_1=clsBankClient::get_ID_from_user();
+        string ID_1=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer From: ");
         while (clsBankClient::IsClientExist(ID_1)==false)
         {
             cout<<"Client with "+ID_1+" does not exist"<<endl;
-            ID_1=clsBankClient::get_ID_from_user();
+            ID_1=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer From: ");
         }
         clsBankClient client_sender=clsBankClient::Find(ID_1);
-        string ID_2=clsBankClient::get_ID_from_user();
+        string ID_2=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer to: ");
         while (clsBankClient::IsClientExist(ID_2)==false)
         {
             cout<<"Client with "+ID_2+" does not exist"<<endl;
-            ID_2=clsBankClient::get_ID_from_user();
+            ID_2=clsBankClient::get_ID_from_user("\nPlease Enter ID to Transfer to: ");
         }
         clsBankClient client_receiver=clsBankClient::Find(ID_2);
-        short amount=_get_withdraw_value(client_sender);
+        float amount=_get_withdraw_value(client_sender);
         client_sender.withdraw(amount);
         client_receiver.deposit(amount);
         clsBankClient::enSaveResults SaveResults1=clsBankClient::save(client_receiver);

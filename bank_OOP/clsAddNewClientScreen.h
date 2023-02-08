@@ -17,11 +17,11 @@ public:
             return;
         } 
         _DrawScreenHeader("Add new client screen");
-        string ID=clsBankClient::get_ID_from_user();
+        string ID=clsBankClient::get_ID_from_user("enter client's ID");
         while (clsBankClient::IsClientExist(ID))
         {
             cout<<"client's ID already exist"<<endl;
-            ID=clsBankClient::get_ID_from_user();
+            ID=clsBankClient::get_ID_from_user("enter client's ID");
         }
         clsBankClient new_client=clsBankClient::get_add_new_client_object(ID);
         new_client.update_info(new_client);

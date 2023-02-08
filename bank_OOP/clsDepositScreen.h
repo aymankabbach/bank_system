@@ -20,11 +20,11 @@ public:
     static void Show_deposit_screen()
     {
         _DrawScreenHeader("Deposit screen");
-        string ID=clsBankClient::get_ID_from_user();
+        string ID=clsBankClient::get_ID_from_user("enter client's ID");
         while (clsBankClient::IsClientExist(ID)==false)
         {
             cout<<"Client with "+ID+" does not exist"<<endl;
-            ID=clsBankClient::get_ID_from_user();
+            ID=clsBankClient::get_ID_from_user("enter client's ID");
         }
         clsBankClient client=clsBankClient::Find(ID);
         client.deposit(_get_deposit_value());
