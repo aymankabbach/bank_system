@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "clsScreen.h"
+#include "clsAllCurrencyScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -31,6 +32,8 @@ private:
             case enCurrency_menu_options::enall:
             {
                 system("cls");
+                clsAllCurrencyScreen::Show_Currencies_List();
+                _back_to_Currency_menu();
                 break;
             }
             case enCurrency_menu_options::enFind:
