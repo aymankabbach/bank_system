@@ -24,10 +24,10 @@ private:
     static string _Convert_Currency_Object_To_Line(clsCurrency Currency, string Seperator = "#//#")
     {
         string stCurrency_Record = "";
-        stCurrency_Record += Currency.Country() + Seperator;
-        stCurrency_Record += Currency.CurrencyCode() + Seperator;
-        stCurrency_Record += Currency.CurrencyName() + Seperator;
-        stCurrency_Record += to_string(Currency.Rate());       
+        stCurrency_Record += Currency.get_Country() + Seperator;
+        stCurrency_Record += Currency.get_CurrencyCode() + Seperator;
+        stCurrency_Record += Currency.get_CurrencyName() + Seperator;
+        stCurrency_Record += to_string(Currency.get_Rate());       
         return stCurrency_Record;
     }
     static  vector <clsCurrency> _Load_Currencies_Data_From_File()
@@ -68,7 +68,7 @@ private:
         _vCurrencies = _Load_Currencies_Data_From_File();
         for (clsCurrency& Currency : _vCurrencies)
         {
-            if (Currency.CurrencyCode() == CurrencyCode())
+            if (Currency.get_CurrencyCode() == get_CurrencyCode())
             {
                 Currency = *this;
                 break;
@@ -98,15 +98,15 @@ public:
     {
         return (_Mode == enMode::EmptyMode);
     }
-    string Country()
+    string get_Country()
     {
         return _Country;
     }
-    string CurrencyCode()
+    string get_CurrencyCode()
     {
         return _CurrencyCode;
     }
-    string CurrencyName()
+    string get_CurrencyName()
     {
         return _CurrencyName;
     }
@@ -115,7 +115,7 @@ public:
         _Rate = NewRate;
         _Update();
     }
-    float Rate()
+    float get_Rate()
     {
         return _Rate;
     }
@@ -131,7 +131,7 @@ public:
             while (getline(MyFile, Line))
             {
                 clsCurrency Currency = _Convert_Line_to_Currency_Object(Line);
-                if (Currency.CurrencyCode() == CurrencyCode)
+                if (Currency.get_CurrencyCode() == CurrencyCode)
                 {
                     MyFile.close();
                     return Currency;
@@ -152,7 +152,7 @@ public:
           while (getline(MyFile, Line))
           {
               clsCurrency Currency = _Convert_Line_to_Currency_Object(Line);
-              if (clsString::upper(Currency.Country()) == Country)
+              if (clsString::upper(Currency.get_Country()) == Country)
               {
                   MyFile.close();
                   return Currency;
