@@ -106,7 +106,7 @@ public:
     }
     void upper()
     {
-      string value=get_value();
+        string value=get_value();
         for (int x=0; x<value.size();x++)
         {
             if (islower(value[x]))
@@ -115,6 +115,28 @@ public:
             }
         }
         set_value(value);   
+    }
+    static string upper(string value)
+    {
+        for (int x=0; x<value.size();x++)
+        {
+            if (islower(value[x]))
+            {
+                value[x]-=32;;
+            }
+        }
+        return value;
+    }
+    static string lower(string value)
+    {
+        for (int x=0; x<value.size();x++)
+        {
+            if (isupper(value[x]))
+            {
+                value[x]+=32;;
+            }
+        }
+        return value;
     }
     void lower()
     {
