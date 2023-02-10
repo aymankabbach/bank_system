@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsScreen.h"
 #include "clsAllCurrencyScreen.h"
+#include "clsFindCurrencyScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -39,6 +40,8 @@ private:
             case enCurrency_menu_options::enFind:
             {
                 system("cls");
+                clsFindCurrencyScreen::Show_Currency();
+                _back_to_Currency_menu();
                 break;
             }
             case enCurrency_menu_options::enUpdate:
@@ -66,7 +69,7 @@ public:
         cout << setw(37) << left <<""<< "===========================================\n";
         cout << setw(37) << left << "" << "\t\t\tMain Menue\n";
         cout << setw(37) << left << "" << "===========================================\n";
-        vector <string> choices={"Show all currencies","Find currency","pdate rate",
+        vector <string> choices={"Show all currencies","Find currency","Update rate",
         "currency calculator","Main Menu"};
         for (short x=0;x<choices.size();x++)
         {
