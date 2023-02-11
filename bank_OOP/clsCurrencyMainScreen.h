@@ -3,6 +3,7 @@
 #include "clsScreen.h"
 #include "clsAllCurrencyScreen.h"
 #include "clsFindCurrencyScreen.h"
+#include "clsUpdateCurrencyScreen.h"
 #include "clsInputValidate.h"
 #include <vector>
 #include <iomanip>
@@ -47,6 +48,8 @@ private:
             case enCurrency_menu_options::enUpdate:
             {
                 system("cls");
+                clsUpdateCurrencyScreen::Show_update_screen();
+                _back_to_Currency_menu();
                 break;
             }
             case enCurrency_menu_options::enExchange:
